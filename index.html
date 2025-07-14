@@ -1,114 +1,96 @@
+<!-- Your same layout, design, and structure -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Kingdom SMP</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
-
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  body, html {
-    height: 100%;
-    font-family: 'MedievalSharp', cursive, serif;
-    color: #d4c49b;
-    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbhK7EI1pE6ElKml1iptHFoflm4JQKTnypPw&s') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    text-shadow: 0 0 10px #a67c00, 0 0 20px #6b4a00;
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 4rem;
-    color: #f3d07a;
-    text-shadow:
-      0 0 5px #f3d07a,
-      0 0 10px #d4b64a,
-      0 0 20px #a47c00;
-    margin-bottom: 0.3em;
-    user-select: none;
-  }
-
-  #logo {
-    width: 128px;
-    height: 128px;
-    margin-bottom: 1em;
-    filter: drop-shadow(0 0 5px #a67c00);
-    user-select: none;
-  }
-
-  #status {
-    font-size: 1.5rem;
-    margin-bottom: 1.2em;
-    font-weight: 600;
-  }
-  #status > div {
-    margin-top: 0.4em;
-  }
-
-  #join-btn {
-    padding: 12px 32px;
-    font-size: 1.3rem;
-    background: linear-gradient(45deg, #a67c00, #d4b64a);
-    border: none;
-    border-radius: 6px;
-    color: #3c2f00;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 10px #d4b64a;
-    text-decoration: none;
-    margin-bottom: 2em;
-    user-select: none;
-    transition: background 0.3s ease;
-    display: inline-block;
-  }
-  #join-btn:hover {
-    background: linear-gradient(45deg, #d4b64a, #a67c00);
-  }
-
-  #intro {
-    max-width: 600px;
-    background: rgba(20, 14, 5, 0.7);
-    padding: 20px 30px;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    line-height: 1.4;
-    white-space: pre-wrap;
-    box-shadow: 0 0 15px #a67c00aa;
-    user-select: text;
-  }
-
-  footer {
-    margin-top: auto;
-    font-size: 0.8rem;
-    color: #b5a66a;
-    user-select: none;
-    font-family: Arial, sans-serif;
-    padding: 8px 0;
-  }
-
-  /* Responsive */
-  @media (max-width: 640px) {
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Kingdom SMP</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      height: 100%;
+      font-family: 'MedievalSharp', cursive, serif;
+      color: #d4c49b;
+      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbhK7EI1pE6ElKml1iptHFoflm4JQKTnypPw&s') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      text-shadow: 0 0 10px #a67c00, 0 0 20px #6b4a00;
+      padding: 20px;
+    }
     h1 {
-      font-size: 2.8rem;
+      font-size: 4rem;
+      color: #f3d07a;
+      text-shadow: 0 0 5px #f3d07a, 0 0 10px #d4b64a, 0 0 20px #a47c00;
+      margin-bottom: 0.3em;
+      user-select: none;
     }
     #logo {
-      width: 96px;
-      height: 96px;
+      width: 128px;
+      height: 128px;
+      margin-bottom: 1em;
+      filter: drop-shadow(0 0 5px #a67c00);
+      user-select: none;
+    }
+    #status {
+      font-size: 1.5rem;
+      margin-bottom: 1.2em;
+      font-weight: 600;
+    }
+    #status > div {
+      margin-top: 0.4em;
+    }
+    #join-btn {
+      padding: 12px 32px;
+      font-size: 1.3rem;
+      background: linear-gradient(45deg, #a67c00, #d4b64a);
+      border: none;
+      border-radius: 6px;
+      color: #3c2f00;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #d4b64a;
+      text-decoration: none;
+      margin-bottom: 2em;
+      user-select: none;
+      transition: background 0.3s ease;
+      display: inline-block;
+    }
+    #join-btn:hover {
+      background: linear-gradient(45deg, #d4b64a, #a67c00);
     }
     #intro {
-      font-size: 1rem;
-      max-width: 90vw;
-      padding: 15px 20px;
+      max-width: 600px;
+      background: rgba(20, 14, 5, 0.7);
+      padding: 20px 30px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      box-shadow: 0 0 15px #a67c00aa;
+      user-select: text;
     }
-  }
-</style>
+    footer {
+      margin-top: auto;
+      font-size: 0.8rem;
+      color: #b5a66a;
+      user-select: none;
+      font-family: Arial, sans-serif;
+      padding: 8px 0;
+    }
+    @media (max-width: 640px) {
+      h1 { font-size: 2.8rem; }
+      #logo { width: 96px; height: 96px; }
+      #intro {
+        font-size: 1rem;
+        max-width: 90vw;
+        padding: 15px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -171,9 +153,7 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
   async function fetchJavaStatus() {
     try {
       const res = await fetch('https://api.mcsrvstat.us/2/gangidkanymore.falixsrv.me:23803');
-      if (!res.ok) throw new Error('Network response was not ok');
       const data = await res.json();
-
       if (data.online) {
         javaStatusEl.textContent = `🛡️ Java Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
         javaStatusEl.style.color = '#a7d129';
@@ -183,7 +163,7 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
         javaStatusEl.style.color = '#b23a3a';
         javaStatusEl.style.textShadow = '0 0 10px #b23a3a';
       }
-    } catch (error) {
+    } catch {
       javaStatusEl.textContent = '❌ Could not fetch Java status';
       javaStatusEl.style.color = '#b23a3a';
       javaStatusEl.style.textShadow = '0 0 10px #b23a3a';
@@ -193,9 +173,7 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
   async function fetchBedrockStatus() {
     try {
       const res = await fetch('https://api.mcsrvstat.us/2/host.falixserver.net:23803');
-      if (!res.ok) throw new Error('Network response was not ok');
       const data = await res.json();
-
       if (data.online) {
         bedrockStatusEl.textContent = `🛡️ Bedrock Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
         bedrockStatusEl.style.color = '#3ea8ff';
@@ -205,23 +183,18 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
         bedrockStatusEl.style.color = '#b23a3a';
         bedrockStatusEl.style.textShadow = '0 0 10px #b23a3a';
       }
-    } catch (error) {
+    } catch {
       bedrockStatusEl.textContent = '❌ Could not fetch Bedrock status';
       bedrockStatusEl.style.color = '#b23a3a';
       bedrockStatusEl.style.textShadow = '0 0 10px #b23a3a';
     }
   }
 
-  async function fetchEaglerStatus() {
-    try {
-      eaglerStatusEl.textContent = '🛡️ Eaglercraft Server status: Coming soon...';
-      eaglerStatusEl.style.color = '#d1a2ff';
-      eaglerStatusEl.style.textShadow = '0 0 10px #d1a2ff';
-    } catch {
-      eaglerStatusEl.textContent = '❌ Could not fetch Eaglercraft status';
-      eaglerStatusEl.style.color = '#b23a3a';
-      eaglerStatusEl.style.textShadow = '0 0 10px #b23a3a';
-    }
+  function fetchEaglerStatus() {
+    // Eaglercraft cannot be tracked with public APIs, so we show a fixed message
+    eaglerStatusEl.textContent = '⚠️ Eaglercraft status cannot be tracked. Join to check.';
+    eaglerStatusEl.style.color = '#d1a2ff';
+    eaglerStatusEl.style.textShadow = '0 0 10px #d1a2ff';
   }
 
   function fetchAllStatuses() {
@@ -231,7 +204,7 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
   }
 
   fetchAllStatuses();
-  setInterval(fetchAllStatuses, 30000);
+  setInterval(fetchAllStatuses, 30000); // Refresh every 30s
 </script>
 
 </body>
