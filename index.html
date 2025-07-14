@@ -99,17 +99,39 @@
       overflow-y: auto;
       margin-top: 2rem;
     }
-    #music-toggle {
+    #music-player {
       position: fixed;
       top: 1rem;
       left: 1rem;
       background: #222;
       border: 2px solid #f3d07a;
-      color: #f3d07a;
-      padding: 0.4rem 1rem;
       border-radius: 8px;
+      padding: 0.6rem 1rem;
+      color: #f3d07a;
+      font-family: 'MedievalSharp', cursive;
+      z-index: 10000;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    #music-player button {
+      background: none;
+      border: none;
+      color: #f3d07a;
+      font-size: 1.2rem;
       cursor: pointer;
-      z-index: 9999;
+      transition: color 0.3s ease;
+    }
+    #music-player button:hover {
+      color: #fff176;
+    }
+    #music-player label {
+      font-size: 0.9rem;
+      user-select: none;
+    }
+    #music-player input[type="range"] {
+      cursor: pointer;
     }
     #map {
       margin: 2rem auto;
@@ -135,11 +157,16 @@
   </style>
 </head>
 <body>
-  <button id="music-toggle">🔊 Music: On</button>
-  <audio id="bg-music" loop autoplay>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d93bb77c2.mp3?filename=medieval-theme-112028.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+
+  <!-- Medieval Music Player -->
+  <div id="music-player">
+    <button id="play-pause" title="Play / Pause">▶️</button>
+    <button id="next-track" title="Next Track">⏭️</button>
+    <label for="volume">Vol:</label>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
+  </div>
+
+  <audio id="bg-music" loop></audio>
 
   <h1>The Kingdom SMP</h1>
   <img id="logo" src="https://i.ibb.co/b3vK2h4/ksmplogo.png" alt="Server Logo" />
@@ -177,23 +204,58 @@
   <footer>© 2025 The Kingdom SMP. All rights reserved.</footer>
 
   <script>
-    const bgMusic = document.getElementById("bg-music");
-    const toggleBtn = document.getElementById("music-toggle");
-    let isMuted = false;
+    const tracks = [
+      { src: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d93bb77c2.mp3?filename=medieval-theme-112028.mp3", title: "Medieval Theme 1" },
+      { src: "https://cdn.pixabay.com/download/audio/2021/12/27/audio_97347760da.mp3?filename=medieval-background-196571.mp3", title: "Medieval Background 2" },
+      { src: "https://cdn.pixabay.com/download/audio/2021/11/27/audio_9a41f819d7.mp3?filename=medieval-village-148956.mp3", title: "Medieval Village Ambience" }
+    ];
 
-    toggleBtn.addEventListener("click", () => {
-      isMuted = !isMuted;
-      bgMusic.muted = isMuted;
-      toggleBtn.textContent = isMuted ? "🔇 Music: Off" : "🔊 Music: On";
+    const audio = document.getElementById("bg-music");
+    const playPauseBtn = document.getElementById("play-pause");
+    const nextTrackBtn = document.getElementById("next-track");
+    const volumeSlider = document.getElementById("volume");
+
+    let currentTrack = 0;
+    let isPlaying = false;
+
+    function loadTrack(index) {
+      audio.src = tracks[index].src;
+      audio.load();
+      if(isPlaying) audio.play();
+      playPauseBtn.textContent = "⏸️";
+      playPauseBtn.title = "Pause";
+    }
+
+    playPauseBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = "⏸️";
+        playPauseBtn.title = "Pause";
+        isPlaying = true;
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = "▶️";
+        playPauseBtn.title = "Play";
+        isPlaying = false;
+      }
     });
 
-    // Auto-refresh the map with a new random image every 60 seconds
-    setInterval(() => {
-      const mapImg = document.querySelector('#map img');
-      mapImg.src = `https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}`;
-    }, 60000);
+    nextTrackBtn.addEventListener("click", () => {
+      currentTrack = (currentTrack + 1) % tracks.length;
+      loadTrack(currentTrack);
+    });
 
-    // Example: Dynamic news from a Discord webhook or external JSON could be loaded here in the future
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = volumeSlider.value;
+    });
+
+    // Initialize
+    audio.volume = volumeSlider.value;
+    loadTrack(currentTrack);
+
+    // Optional: autoplay
+    // audio.play().then(() => { isPlaying = true; playPauseBtn.textContent = "⏸️"; }).catch(() => {});
   </script>
+
 </body>
 </html>
