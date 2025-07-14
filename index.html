@@ -61,6 +61,40 @@
     #join-btn:hover {
       background: linear-gradient(45deg, #d4b64a, #a67c00);
     }
+    /* Copy button styles */
+    .copy-btn {
+      margin-left: 12px;
+      background: linear-gradient(45deg, #a67c00, #d4b64a);
+      border: none;
+      border-radius: 5px;
+      color: #3c2f00;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 4px 10px;
+      font-size: 0.9rem;
+      box-shadow: 0 0 5px #d4b64a;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    .copy-btn:hover {
+      background: linear-gradient(45deg, #d4b64a, #a67c00);
+    }
+    /* Eaglercraft Join Button */
+    #eagler-join-btn {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 24px;
+      background: linear-gradient(45deg, #7f46ff, #d1a2ff);
+      color: #3c2f00;
+      font-weight: bold;
+      border-radius: 6px;
+      text-decoration: none;
+      user-select: none;
+      box-shadow: 0 0 10px #d1a2ff;
+    }
+    #eagler-join-btn:hover {
+      background: linear-gradient(45deg, #d1a2ff, #7f46ff);
+    }
     #intro {
       max-width: 600px;
       background: rgba(20, 14, 5, 0.7);
@@ -79,24 +113,6 @@
       user-select: none;
       font-family: Arial, sans-serif;
       padding: 8px 0;
-    }
-    /* Copy button styles */
-    .copy-btn {
-      margin-left: 12px;
-      background: linear-gradient(45deg, #a67c00, #d4b64a);
-      border: none;
-      border-radius: 5px;
-      color: #3c2f00;
-      font-weight: bold;
-      cursor: pointer;
-      padding: 4px 10px;
-      font-size: 0.9rem;
-      box-shadow: 0 0 5px #d4b64a;
-      user-select: none;
-      transition: background 0.3s ease;
-    }
-    .copy-btn:hover {
-      background: linear-gradient(45deg, #d4b64a, #a67c00);
     }
     @media (max-width: 640px) {
       h1 { font-size: 2.8rem; }
@@ -123,7 +139,18 @@
       Loading Bedrock server status...
       <button class="copy-btn" data-ip="host.falixserver.net:23803">Copy IP</button>
     </div>
-    <div id="eagler-status">Loading Eaglercraft server status...</div>
+    <div id="eagler-status">
+      Loading Eaglercraft server status...
+    </div>
+
+    <a
+      id="eagler-join-btn"
+      href="https://eagler-viaversion-a2j9.onrender.com/game.html"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Join Eaglercraft Now
+    </a>
   </div>
 
   <a
@@ -172,6 +199,7 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
     const javaStatusEl = document.getElementById('java-status');
     const bedrockStatusEl = document.getElementById('bedrock-status');
     const eaglerStatusEl = document.getElementById('eagler-status');
+    const eaglerJoinBtn = document.getElementById('eagler-join-btn');
 
     async function fetchJavaStatus() {
       try {
@@ -214,10 +242,10 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
     }
 
     function fetchEaglerStatus() {
-      // Eaglercraft cannot be tracked by APIs, so show fixed message
       eaglerStatusEl.textContent = '🟢 Eaglercraft Server Online (Web Client)';
       eaglerStatusEl.style.color = '#7fff9f';
       eaglerStatusEl.style.textShadow = '0 0 10px #7fff9f';
+      eaglerJoinBtn.style.display = 'inline-block';
     }
 
     function fetchAllStatuses() {
@@ -227,9 +255,8 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
     }
 
     fetchAllStatuses();
-    setInterval(fetchAllStatuses, 30000); // refresh every 30s
+    setInterval(fetchAllStatuses, 30000);
 
-    // Copy IP buttons functionality
     document.querySelectorAll('.copy-btn').forEach(button => {
       button.addEventListener('click', () => {
         const ip = button.getAttribute('data-ip');
