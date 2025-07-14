@@ -99,10 +99,8 @@
       font-size: 1.1rem;
       box-shadow: 0 0 12px #ff4d4d;
     }
-    #theme-toggle {
+    #theme-toggle, #music-toggle {
       position: fixed;
-      top: 1rem;
-      right: 1rem;
       background: #222;
       border: 2px solid #f3d07a;
       border-radius: 6px;
@@ -111,6 +109,8 @@
       cursor: pointer;
       z-index: 10000;
     }
+    #theme-toggle { top: 1rem; right: 1rem; }
+    #music-toggle { bottom: 1rem; right: 1rem; }
     #gallery img {
       max-width: 100%;
       height: auto;
@@ -130,31 +130,40 @@
       border-radius: 8px;
       box-shadow: 0 0 12px #000;
     }
-    #music-toggle {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      background: #222;
-      border: 2px solid #f3d07a;
-      border-radius: 6px;
-      color: #f3d07a;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
-      z-index: 10000;
+    .scroll-lore {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      text-align: left;
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 1rem;
+      border: 2px dashed #f3d07a;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      animation: fadeIn 2s ease-in;
     }
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+    #map img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 14px #a67c00;
+      margin-top: 1rem;
     }
+    #ranks ul {
+      list-style: none;
+      padding: 0;
+    }
+    #ranks li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f3d07a;
+      text-align: left;
+    }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
-  <div id="splash">
-    <h2>⚔️ Entering The Kingdom...</h2>
-  </div>
-
+  <div id="splash"><h2>⚔️ Entering The Kingdom...</h2></div>
   <div id="alert">⚠️ Blood Tournament begins this Friday! Join Discord for details!</div>
   <button id="theme-toggle">🌙 Toggle Theme</button>
   <button id="music-toggle">🎵 Music On/Off</button>
@@ -168,9 +177,7 @@
     <div id="eagler-status">⚠️ Eaglercraft status cannot be tracked. Join to check.</div>
   </div>
 
-  <a class="join-btn" href="https://eagler-viaversion-a2j9.onrender.com/game.html" target="_blank">
-    💻 Join Eaglercraft
-  </a>
+  <a class="join-btn" href="https://eagler-viaversion-a2j9.onrender.com/game.html" target="_blank">💻 Join Eaglercraft</a>
 
   <section id="youtube-videos">
     <h2>🎥 Latest from THE_KINGDOM_SMP</h2>
@@ -189,17 +196,32 @@
       <li>🏰 Creative Realm – Coming soon…</li>
       <li>🌌 Skyblock & Minigames – Forged in the void. Soon to awaken.</li>
     </ul>
-    <p>
-      🛡️ Server Portals:<br>
-      Java: gangidkanymore.falixsrv.me:23803<br>
-      Bedrock: host.falixserver.net | Port: 23803<br>
-      Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com
-    </p>
+    <p>🛡️ Server Portals:<br>Java: gangidkanymore.falixsrv.me:23803<br>Bedrock: host.falixserver.net | Port: 23803<br>Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com</p>
   </section>
 
-  <footer>
-    © 2025 The Kingdom SMP. All rights reserved.
-  </footer>
+  <section id="lore">
+    <h2>📜 Kingdom Lore Scroll</h2>
+    <div class="scroll-lore" id="lore-text"></div>
+  </section>
+
+  <section id="map">
+    <h2>🗺️ Server Map</h2>
+    <p>Explore the war-torn Kingdom. Key locations coming soon.</p>
+    <img src="https://i.imgur.com/C6CGGgT.jpg" alt="Server Map Preview" />
+  </section>
+
+  <section id="ranks">
+    <h2>🛡️ Player Ranks</h2>
+    <ul>
+      <li><strong>👑 King:</strong> Supreme ruler of the land (Admin)</li>
+      <li><strong>⚔️ Knight:</strong> Trusted warrior and protector (Mod)</li>
+      <li><strong>🏹 Hunter:</strong> PvP skilled fighter (PvP Elite)</li>
+      <li><strong>🛠️ Builder:</strong> Creator of castles and cities</li>
+      <li><strong>🌿 Peasant:</strong> Newcomer to the Kingdom</li>
+    </ul>
+  </section>
+
+  <footer>© 2025 The Kingdom SMP. All rights reserved.</footer>
 
   <audio id="bg-music" loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/06/14/audio_d6de7eb677.mp3?filename=the-kingdom-146895.mp3" type="audio/mpeg">
@@ -243,7 +265,6 @@
       }
     });
 
-    // YouTube feed from your channel
     const channelID = "UCTp5a5gxQXXW0C2Rh8BAGgw";
     const feedURL = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
 
@@ -261,6 +282,23 @@
           container.appendChild(embed);
         });
       });
+
+    const loreLines = [
+      "In a time before light, The Kingdom was forged from fire, steel, and shadow.",
+      "Betrayed by kings, saved by rebels, and haunted by a curse from the void.",
+      "The throne lies empty. Power beckons those who dare claim it..."
+    ];
+
+    let current = 0;
+    const loreDiv = document.getElementById("lore-text");
+    function showNextLine() {
+      if (current < loreLines.length) {
+        loreDiv.innerHTML += loreLines[current] + "\n\n";
+        current++;
+        setTimeout(showNextLine, 2500);
+      }
+    }
+    showNextLine();
   </script>
 </body>
 </html>
