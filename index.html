@@ -167,7 +167,10 @@
   <div id="status">
     <div id="java-status">Loading Java server status...</div>
     <div id="bedrock-status">Loading Bedrock server status...</div>
-    <div id="eagler-status">⚠️ Eaglercraft status cannot be tracked. Join to check.</div>
+    <div id="eagler-status">
+      ⚠️ Eaglercraft status cannot be tracked. Join to check.<br />
+      <a class="join-btn" href="https://eagler-viaversion-a2j9.onrender.com/game.html" target="_blank">💻 Join Eaglercraft</a>
+    </div>
   </div>
 
   <a class="join-btn" href="https://eagler-viaversion-a2j9.onrender.com/game.html" target="_blank"
@@ -243,7 +246,7 @@
   <section id="youtube-videos">
     <h2>🎥 Latest Videos from THE_KINGDOM_SMP</h2>
     <div id="videos-container">
-      <!-- YouTube videos will load here -->
+      <p>Loading latest videos...</p>
     </div>
   </section>
 
@@ -285,19 +288,21 @@
     const MAX_RESULTS = 5;
 
     async function fetchLatestVideos() {
+      const container = document.getElementById('videos-container');
+      container.innerHTML = '<p>Loading latest videos...</p>';
+
       const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${MAX_RESULTS}`;
 
       try {
         const response = await fetch(url);
         const data = await response.json();
 
-        const container = document.getElementById('videos-container');
-        container.innerHTML = ''; // Clear previous
-
         if (!data.items || data.items.length === 0) {
           container.innerHTML = '<p>No recent videos found.</p>';
           return;
         }
+
+        container.innerHTML = ''; // Clear loading message
 
         data.items.forEach((item) => {
           if (item.id.kind === 'youtube#video') {
@@ -319,8 +324,7 @@
         });
       } catch (err) {
         console.error('Failed to fetch YouTube videos:', err);
-        document.getElementById('videos-container').innerHTML =
-          '<p>Error loading videos.</p>';
+        container.innerHTML = '<p>Error loading videos.</p>';
       }
     }
 
