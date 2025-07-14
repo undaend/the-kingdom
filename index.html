@@ -73,232 +73,127 @@
       font-size: 0.8rem;
       color: #b5a66a;
     }
-    #splash {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-      animation: fadeOut 2.5s ease forwards;
-      animation-delay: 2.5s;
-    }
-    #splash h2 {
-      font-size: 3rem;
-      color: #f3d07a;
-      text-shadow: 0 0 12px #a67c00;
-    }
-    #alert {
-      background: linear-gradient(to right, #8f0000, #ff4d4d);
-      color: #fff0d0;
-      padding: 12px;
-      font-size: 1.1rem;
-      box-shadow: 0 0 12px #ff4d4d;
-    }
-    #theme-toggle, #music-toggle {
-      position: fixed;
-      background: #222;
-      border: 2px solid #f3d07a;
-      border-radius: 6px;
-      color: #f3d07a;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
-      z-index: 10000;
-    }
-    #theme-toggle { top: 1rem; right: 1rem; }
-    #music-toggle { bottom: 1rem; right: 1rem; }
-    #gallery img {
-      max-width: 100%;
-      height: auto;
+    #discord-widget iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
       border-radius: 8px;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 12px #000;
+      box-shadow: 0 0 16px #7289da;
     }
-    #youtube-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
+    #leaderboard ul {
+      list-style: none;
+      padding: 0;
+      animation: fadeInUp 2s ease-out;
     }
-    .yt-video {
-      width: 320px;
-      border: 3px solid #f3d07a;
-      border-radius: 8px;
-      box-shadow: 0 0 12px #000;
-    }
-    .scroll-lore {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      white-space: pre-wrap;
+    #leaderboard li {
       text-align: left;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f3d07a;
+    }
+    #news {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem;
+      border-radius: 12px;
+      border: 2px dashed #f3d07a;
       max-height: 300px;
       overflow-y: auto;
+      margin-top: 2rem;
+    }
+    #music-toggle {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      background: #222;
+      border: 2px solid #f3d07a;
+      color: #f3d07a;
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 9999;
+    }
+    #map {
+      margin: 2rem auto;
       padding: 1rem;
-      border: 2px dashed #f3d07a;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      animation: fadeIn 2s ease-in;
+      border: 2px solid #a67c00;
+      border-radius: 12px;
+      background-color: rgba(0,0,0,0.6);
     }
     #map img {
       max-width: 100%;
       border-radius: 12px;
-      box-shadow: 0 0 14px #a67c00;
-      margin-top: 1rem;
     }
-    #ranks ul {
-      list-style: none;
-      padding: 0;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    #ranks li {
-      padding: 0.6rem 0;
-      border-bottom: 1px solid #f3d07a;
-      text-align: left;
-    }
-    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
-  <div id="splash"><h2>⚔️ Entering The Kingdom...</h2></div>
-  <div id="alert">⚠️ Blood Tournament begins this Friday! Join Discord for details!</div>
-  <button id="theme-toggle">🌙 Toggle Theme</button>
-  <button id="music-toggle">🎵 Music On/Off</button>
+  <button id="music-toggle">🔊 Music: On</button>
+  <audio id="bg-music" loop autoplay>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d93bb77c2.mp3?filename=medieval-theme-112028.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <h1>The Kingdom SMP</h1>
   <img id="logo" src="https://i.ibb.co/b3vK2h4/ksmplogo.png" alt="Server Logo" />
 
-  <div id="status">
-    <div id="java-status">Loading Java server status...</div>
-    <div id="bedrock-status">Loading Bedrock server status...</div>
-    <div id="eagler-status">⚠️ Eaglercraft status cannot be tracked. Join to check.</div>
-  </div>
-
-  <a class="join-btn" href="https://eagler-viaversion-a2j9.onrender.com/game.html" target="_blank">💻 Join Eaglercraft</a>
-
-  <section id="youtube-videos">
-    <h2>🎥 Latest from THE_KINGDOM_SMP</h2>
-    <div id="youtube-grid"></div>
+  <section id="discord-widget">
+    <h2>💬 The Kingdom Discord</h2>
+    <iframe src="https://discord.com/widget?id=1138228328538429540&theme=dark" allowtransparency="true" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
   </section>
 
-  <section id="intro">
-    🕯️ 𝕿𝖍𝖊 𝕶𝖎𝖓𝖌𝖉𝖔𝖒 SMP 🕯️<br><br>
-    Where power is taken — never given.<br><br>
-    A land broken by war, veiled in shadow. Java, Bedrock, and Eaglercraft warriors rise under one blood-stained banner.
-    <ul style="text-align:left; padding-left: 2rem;">
-      <li>⚔️ Lifesteal PvP – Spill blood. Steal hearts.</li>
-      <li>🪄 Custom Enchants – Forbidden powers beyond ancient scrolls.</li>
-      <li>🛒 Shops – Buy, sell, and trade in the black market.</li>
-      <li>📦 Teleportation – Travel swiftly through cursed lands.</li>
-      <li>🏰 Creative Realm – Coming soon…</li>
-      <li>🌌 Skyblock & Minigames – Forged in the void. Soon to awaken.</li>
+  <section id="leaderboard">
+    <h2>🏆 Top Warriors</h2>
+    <ul>
+      <li>👑 stilltyping0_02 - 350 hearts</li>
+      <li>⚔️ KnightSlayer - 276 hearts</li>
+      <li>🏹 ArrowBeast - 190 hearts</li>
+      <li>🔥 FireSoul - 163 hearts</li>
     </ul>
-    <p>🛡️ Server Portals:<br>Java: gangidkanymore.falixsrv.me:23803<br>Bedrock: host.falixserver.net | Port: 23803<br>Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com</p>
   </section>
 
-  <section id="lore">
-    <h2>📜 Kingdom Lore Scroll</h2>
-    <div class="scroll-lore" id="lore-text"></div>
+  <section id="news">
+    <h2>📰 Kingdom News</h2>
+    <ul id="news-feed">
+      <li><strong>July 14:</strong> The Blood Tournament begins Friday!</li>
+      <li><strong>July 10:</strong> Skyblock Beta released for testing.</li>
+      <li><strong>July 5:</strong> New custom enchants added to shops!</li>
+    </ul>
   </section>
 
   <section id="map">
     <h2>🗺️ Server Map</h2>
-    <p>Explore the war-torn Kingdom. Key locations coming soon.</p>
-    <img src="https://i.imgur.com/C6CGGgT.jpg" alt="Server Map Preview" />
-  </section>
-
-  <section id="ranks">
-    <h2>🛡️ Player Ranks</h2>
-    <ul>
-      <li><strong>👑 King:</strong> Supreme ruler of the land (Admin)</li>
-      <li><strong>⚔️ Knight:</strong> Trusted warrior and protector (Mod)</li>
-      <li><strong>🏹 Hunter:</strong> PvP skilled fighter (PvP Elite)</li>
-      <li><strong>🛠️ Builder:</strong> Creator of castles and cities</li>
-      <li><strong>🌿 Peasant:</strong> Newcomer to the Kingdom</li>
-    </ul>
+    <img src="https://picsum.photos/800/400?random=1" alt="Random Server Map Image" />
+    <p style="color:#f3d07a; font-size: 0.9rem;">Note: This is a placeholder. Real-time map support coming soon.</p>
   </section>
 
   <footer>© 2025 The Kingdom SMP. All rights reserved.</footer>
 
-  <audio id="bg-music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2023/06/14/audio_d6de7eb677.mp3?filename=the-kingdom-146895.mp3" type="audio/mpeg">
-  </audio>
-
   <script>
-    async function fetchStatus(ip, elId) {
-      try {
-        const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-        const data = await res.json();
-        const el = document.getElementById(elId);
-        if (data.online) {
-          el.textContent = `✅ ${elId.split('-')[0].toUpperCase()} Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
-        } else {
-          el.textContent = `❌ ${elId.split('-')[0].toUpperCase()} Server OFFLINE`;
-        }
-      } catch {
-        document.getElementById(elId).textContent = `⚠️ Could not fetch ${elId.split('-')[0]} status.`;
-      }
-    }
+    const bgMusic = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("music-toggle");
+    let isMuted = false;
 
-    fetchStatus('gangidkanymore.falixsrv.me:23803', 'java-status');
-    fetchStatus('host.falixserver.net:23803', 'bedrock-status');
-
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme") || "dark";
-      const next = current === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
+    toggleBtn.addEventListener("click", () => {
+      isMuted = !isMuted;
+      bgMusic.muted = isMuted;
+      toggleBtn.textContent = isMuted ? "🔇 Music: Off" : "🔊 Music: On";
     });
 
-    const music = document.getElementById("bg-music");
-    const musicToggle = document.getElementById("music-toggle");
-    let playing = false;
-    musicToggle.addEventListener("click", () => {
-      if (playing) {
-        music.pause();
-        playing = false;
-      } else {
-        music.play();
-        playing = true;
-      }
-    });
+    // Auto-refresh the map with a new random image every 60 seconds
+    setInterval(() => {
+      const mapImg = document.querySelector('#map img');
+      mapImg.src = `https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}`;
+    }, 60000);
 
-    const channelID = "UCTp5a5gxQXXW0C2Rh8BAGgw";
-    const feedURL = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
-
-    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedURL)}`)
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("youtube-grid");
-        data.items.slice(0, 4).forEach(item => {
-          const videoId = item.link.split("=")[1];
-          const embed = document.createElement("iframe");
-          embed.className = "yt-video";
-          embed.src = `https://www.youtube.com/embed/${videoId}`;
-          embed.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-          embed.allowFullscreen = true;
-          container.appendChild(embed);
-        });
-      });
-
-    const loreLines = [
-      "In a time before light, The Kingdom was forged from fire, steel, and shadow.",
-      "Betrayed by kings, saved by rebels, and haunted by a curse from the void.",
-      "The throne lies empty. Power beckons those who dare claim it..."
-    ];
-
-    let current = 0;
-    const loreDiv = document.getElementById("lore-text");
-    function showNextLine() {
-      if (current < loreLines.length) {
-        loreDiv.innerHTML += loreLines[current] + "\n\n";
-        current++;
-        setTimeout(showNextLine, 2500);
-      }
-    }
-    showNextLine();
+    // Example: Dynamic news from a Discord webhook or external JSON could be loaded here in the future
   </script>
 </body>
 </html>
