@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Kingdom SMP</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
   <style>
     :root {
       --main-bg: #000;
@@ -98,40 +98,19 @@
       max-height: 300px;
       overflow-y: auto;
       margin-top: 2rem;
+      text-align: left;
     }
-    #music-player {
+    #music-toggle {
       position: fixed;
       top: 1rem;
       left: 1rem;
       background: #222;
       border: 2px solid #f3d07a;
+      color: #f3d07a;
+      padding: 0.4rem 1rem;
       border-radius: 8px;
-      padding: 0.6rem 1rem;
-      color: #f3d07a;
-      font-family: 'MedievalSharp', cursive;
-      z-index: 10000;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-    #music-player button {
-      background: none;
-      border: none;
-      color: #f3d07a;
-      font-size: 1.2rem;
       cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    #music-player button:hover {
-      color: #fff176;
-    }
-    #music-player label {
-      font-size: 0.9rem;
-      user-select: none;
-    }
-    #music-player input[type="range"] {
-      cursor: pointer;
+      z-index: 9999;
     }
     #map {
       margin: 2rem auto;
@@ -157,19 +136,37 @@
   </style>
 </head>
 <body>
-
-  <!-- Medieval Music Player -->
-  <div id="music-player">
-    <button id="play-pause" title="Play / Pause">▶️</button>
-    <button id="next-track" title="Next Track">⏭️</button>
-    <label for="volume">Vol:</label>
-    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5" />
-  </div>
-
-  <audio id="bg-music" loop></audio>
+  <button id="music-toggle">🔇 Music: Off</button>
+  <audio id="bg-music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d93bb77c2.mp3?filename=medieval-theme-112028.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
 
   <h1>The Kingdom SMP</h1>
   <img id="logo" src="https://i.ibb.co/b3vK2h4/ksmplogo.png" alt="Server Logo" />
+
+  <div id="status">
+    <div id="java-status">Loading Java server status...</div>
+    <div id="bedrock-status">Loading Bedrock server status...</div>
+    <div id="eagler-status">⚠️ Eaglercraft status cannot be tracked. Join to check.</div>
+  </div>
+
+  <a class="join-btn" href="https://eagler-viaversion-a2j9.onrender.com/game.html" target="_blank">
+    💻 Join Eaglercraft
+  </a>
+
+  <section id="rules">
+    <h2>⚔ Server Rules</h2>
+    <ol>
+      <li>Respect all players and staff. Toxicity leads to banishment.</li>
+      <li>No griefing or stealing unless allowed by game mechanics.</li>
+      <li>Keep chat clean — no hate, no spam, no slurs.</li>
+      <li>No exploiting, hacking, or using unfair mods.</li>
+      <li>Lifesteal PvP must be fair — no spawn killing or glitch abuse.</li>
+      <li>Use common sense. If you think it’s wrong, don’t do it.</li>
+      <li>Admins have final say — appeal fairly if punished.</li>
+    </ol>
+  </section>
 
   <section id="discord-widget">
     <h2>💬 The Kingdom Discord</h2>
@@ -204,58 +201,59 @@
   <footer>© 2025 The Kingdom SMP. All rights reserved.</footer>
 
   <script>
-    const tracks = [
-      { src: "https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d93bb77c2.mp3?filename=medieval-theme-112028.mp3", title: "Medieval Theme 1" },
-      { src: "https://cdn.pixabay.com/download/audio/2021/12/27/audio_97347760da.mp3?filename=medieval-background-196571.mp3", title: "Medieval Background 2" },
-      { src: "https://cdn.pixabay.com/download/audio/2021/11/27/audio_9a41f819d7.mp3?filename=medieval-village-148956.mp3", title: "Medieval Village Ambience" }
-    ];
+    const bgMusic = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("music-toggle");
 
-    const audio = document.getElementById("bg-music");
-    const playPauseBtn = document.getElementById("play-pause");
-    const nextTrackBtn = document.getElementById("next-track");
-    const volumeSlider = document.getElementById("volume");
+    // Start muted and paused, so browsers won't block
+    bgMusic.muted = true;
 
-    let currentTrack = 0;
-    let isPlaying = false;
-
-    function loadTrack(index) {
-      audio.src = tracks[index].src;
-      audio.load();
-      if(isPlaying) audio.play();
-      playPauseBtn.textContent = "⏸️";
-      playPauseBtn.title = "Pause";
+    function playMusicOnInteraction() {
+      bgMusic.play().then(() => {
+        bgMusic.muted = false;
+        toggleBtn.textContent = "🔊 Music: On";
+      }).catch(() => {
+        // Autoplay blocked or error, keep muted
+      });
+      window.removeEventListener('click', playMusicOnInteraction);
     }
 
-    playPauseBtn.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        playPauseBtn.textContent = "⏸️";
-        playPauseBtn.title = "Pause";
-        isPlaying = true;
+    window.addEventListener('click', playMusicOnInteraction);
+
+    toggleBtn.addEventListener("click", () => {
+      if (bgMusic.paused) {
+        bgMusic.play();
+        bgMusic.muted = false;
+        toggleBtn.textContent = "🔊 Music: On";
       } else {
-        audio.pause();
-        playPauseBtn.textContent = "▶️";
-        playPauseBtn.title = "Play";
-        isPlaying = false;
+        bgMusic.pause();
+        toggleBtn.textContent = "🔇 Music: Off";
       }
     });
 
-    nextTrackBtn.addEventListener("click", () => {
-      currentTrack = (currentTrack + 1) % tracks.length;
-      loadTrack(currentTrack);
-    });
+    // Fetch Java and Bedrock server status
+    async function fetchStatus(ip, elId) {
+      try {
+        const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+        const data = await res.json();
+        const el = document.getElementById(elId);
+        if (data.online) {
+          el.textContent = `✅ ${elId.split('-')[0].toUpperCase()} Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
+        } else {
+          el.textContent = `❌ ${elId.split('-')[0].toUpperCase()} Server OFFLINE`;
+        }
+      } catch {
+        document.getElementById(elId).textContent = `⚠️ Could not fetch ${elId.split('-')[0]} status.`;
+      }
+    }
 
-    volumeSlider.addEventListener("input", () => {
-      audio.volume = volumeSlider.value;
-    });
+    fetchStatus('gangidkanymore.falixsrv.me:23803', 'java-status');
+    fetchStatus('host.falixserver.net:23803', 'bedrock-status');
 
-    // Initialize
-    audio.volume = volumeSlider.value;
-    loadTrack(currentTrack);
-
-    // Optional: autoplay
-    // audio.play().then(() => { isPlaying = true; playPauseBtn.textContent = "⏸️"; }).catch(() => {});
+    // Auto-refresh the map with a new random image every 60 seconds
+    setInterval(() => {
+      const mapImg = document.querySelector('#map img');
+      mapImg.src = `https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}`;
+    }, 60000);
   </script>
-
 </body>
 </html>
