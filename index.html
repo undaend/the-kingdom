@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Kingdom SMP</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
   <style>
     :root {
       --main-bg: #000;
@@ -19,14 +19,13 @@
     body {
       margin: 0;
       font-family: 'MedievalSharp', cursive;
-      background: var(--main-bg)
-        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbhK7EI1pE6ElKml1iptHFoflm4JQKTnypPw&s')
-        no-repeat center center fixed;
+      background: var(--main-bg) url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbhK7EI1pE6ElKml1iptHFoflm4JQKTnypPw&s') no-repeat center center fixed;
       background-size: cover;
       color: var(--text-color);
       text-align: center;
       padding: 2rem;
       transition: background 0.3s ease, color 0.3s ease;
+      cursor: url('https://cur.cursors-4u.net/games/gam-11/gam1087.cur'), auto;
     }
     h1 {
       font-size: 4rem;
@@ -51,6 +50,11 @@
       color: #1e1e2f;
       text-decoration: none;
       box-shadow: 0 0 18px #7289da;
+      transition: all 0.3s ease;
+    }
+    .join-btn:hover {
+      box-shadow: 0 0 25px #fff176;
+      transform: scale(1.05);
     }
     section {
       max-width: 760px;
@@ -71,8 +75,7 @@
     }
     #splash {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100vw;
       height: 100vh;
       background: black;
@@ -115,6 +118,30 @@
       margin-bottom: 1rem;
       box-shadow: 0 0 12px #000;
     }
+    #youtube-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .yt-video {
+      width: 320px;
+      border: 3px solid #f3d07a;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #000;
+    }
+    #music-toggle {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: #222;
+      border: 2px solid #f3d07a;
+      border-radius: 6px;
+      color: #f3d07a;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      z-index: 10000;
+    }
     @keyframes fadeOut {
       to {
         opacity: 0;
@@ -129,8 +156,8 @@
   </div>
 
   <div id="alert">⚠️ Blood Tournament begins this Friday! Join Discord for details!</div>
-
   <button id="theme-toggle">🌙 Toggle Theme</button>
+  <button id="music-toggle">🎵 Music On/Off</button>
 
   <h1>The Kingdom SMP</h1>
   <img id="logo" src="https://i.ibb.co/b3vK2h4/ksmplogo.png" alt="Server Logo" />
@@ -145,9 +172,15 @@
     💻 Join Eaglercraft
   </a>
 
-  <section>
-    <h2>🕯️ The Kingdom SMP</h2>
-    <p>Where power is taken — never given. Java, Bedrock, and Eaglercraft warriors rise under one blood-stained banner.</p>
+  <section id="youtube-videos">
+    <h2>🎥 Latest from THE_KINGDOM_SMP</h2>
+    <div id="youtube-grid"></div>
+  </section>
+
+  <section id="intro">
+    🕯️ 𝕿𝖍𝖊 𝕶𝖎𝖓𝖌𝖉𝖔𝖒 SMP 🕯️<br><br>
+    Where power is taken — never given.<br><br>
+    A land broken by war, veiled in shadow. Java, Bedrock, and Eaglercraft warriors rise under one blood-stained banner.
     <ul style="text-align:left; padding-left: 2rem;">
       <li>⚔️ Lifesteal PvP – Spill blood. Steal hearts.</li>
       <li>🪄 Custom Enchants – Forbidden powers beyond ancient scrolls.</li>
@@ -156,46 +189,21 @@
       <li>🏰 Creative Realm – Coming soon…</li>
       <li>🌌 Skyblock & Minigames – Forged in the void. Soon to awaken.</li>
     </ul>
-    <p>🛡️ Server IPs:<br>Java: gangidkanymore.falixsrv.me:23803<br>Bedrock: host.falixserver.net | Port: 23803<br>Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com</p>
+    <p>
+      🛡️ Server Portals:<br>
+      Java: gangidkanymore.falixsrv.me:23803<br>
+      Bedrock: host.falixserver.net | Port: 23803<br>
+      Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com
+    </p>
   </section>
 
-  <section>
-    <h2>⚔ Server Rules</h2>
-    <ol>
-      <li>Respect all players and staff. Toxicity leads to banishment.</li>
-      <li>No griefing or stealing unless allowed by game mechanics.</li>
-      <li>Keep chat clean — no hate, no spam, no slurs.</li>
-      <li>No exploiting, hacking, or using unfair mods.</li>
-      <li>Lifesteal PvP must be fair — no spawn killing or glitch abuse.</li>
-      <li>Use common sense. If you think it’s wrong, don’t do it.</li>
-      <li>Admins have final say — appeal fairly if punished.</li>
-    </ol>
-  </section>
+  <footer>
+    © 2025 The Kingdom SMP. All rights reserved.
+  </footer>
 
-  <section>
-    <h2>📜 Kingdom Lore</h2>
-    <p>In a time before light, The Kingdom was forged from fire, steel, and shadow. Betrayed by kings, saved by rebels, and haunted by a curse that whispers from the void. The throne lies empty. Power beckons those who dare claim it...</p>
-  </section>
-
-  <section>
-    <h2>🏞️ Image Gallery</h2>
-    <img src="https://i.imgur.com/4ZQZ4E8.jpg" alt="Blood Arena" />
-    <img src="https://i.imgur.com/Nk6Vk3x.jpg" alt="First Castle" />
-    <img src="https://i.imgur.com/xlYTAvW.jpg" alt="The Forbidden Market" />
-  </section>
-
-  <section>
-    <h2>🕯️ Join Us on Discord</h2>
-    <p>Connect with the realm, stay updated, and chat with fellow warriors.<br><strong>Server:</strong> The Kingdom<br><strong>Owner:</strong> stilltyping0_02</p>
-    <a class="join-btn" href="https://discord.gg/YExYCM7Zyf" target="_blank">💬 Join Our Discord</a>
-  </section>
-
-  <section>
-    <h2>🎥 Latest from THE_KINGDOM_SMP</h2>
-    <iframe width="100%" height="400" src="https://www.youtube.com/embed?listType=user_uploads&list=UCTp5a5gxQXXW0C2Rh8BAGgw" title="Latest Videos" frameborder="0" allowfullscreen></iframe>
-  </section>
-
-  <footer>© 2025 The Kingdom SMP. All rights reserved.</footer>
+  <audio id="bg-music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/06/14/audio_d6de7eb677.mp3?filename=the-kingdom-146895.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
     async function fetchStatus(ip, elId) {
@@ -216,11 +224,43 @@
     fetchStatus('gangidkanymore.falixsrv.me:23803', 'java-status');
     fetchStatus('host.falixserver.net:23803', 'bedrock-status');
 
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
     });
+
+    const music = document.getElementById("bg-music");
+    const musicToggle = document.getElementById("music-toggle");
+    let playing = false;
+    musicToggle.addEventListener("click", () => {
+      if (playing) {
+        music.pause();
+        playing = false;
+      } else {
+        music.play();
+        playing = true;
+      }
+    });
+
+    // YouTube feed from your channel
+    const channelID = "UCTp5a5gxQXXW0C2Rh8BAGgw";
+    const feedURL = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelID}`;
+
+    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedURL)}`)
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("youtube-grid");
+        data.items.slice(0, 4).forEach(item => {
+          const videoId = item.link.split("=")[1];
+          const embed = document.createElement("iframe");
+          embed.className = "yt-video";
+          embed.src = `https://www.youtube.com/embed/${videoId}`;
+          embed.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+          embed.allowFullscreen = true;
+          container.appendChild(embed);
+        });
+      });
   </script>
 </body>
 </html>
