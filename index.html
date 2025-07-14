@@ -115,38 +115,6 @@
       margin-bottom: 1rem;
       box-shadow: 0 0 12px #000;
     }
-    /* YouTube Link Styles */
-    #youtube-link {
-      margin: 3rem auto 1rem;
-      max-width: 760px;
-      font-family: 'MedievalSharp', cursive;
-      text-align: center;
-    }
-    #youtube-link a.button {
-      display: inline-block;
-      background: linear-gradient(45deg, #bfa14a, #f0d86e);
-      color: #1a1a1a;
-      padding: 14px 30px;
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-decoration: none;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #bfa14a;
-      letter-spacing: 1.5px;
-      transition: box-shadow 0.3s ease;
-    }
-    #youtube-link a.button:hover {
-      box-shadow: 0 0 25px #ffd700;
-    }
-    #youtube-link a.icon-link {
-      display: inline-block;
-      margin-top: 15px;
-    }
-    #youtube-link a.icon-link img {
-      width: 40px;
-      height: 40px;
-      filter: drop-shadow(0 0 4px #bfa14a);
-    }
     @keyframes fadeOut {
       to {
         opacity: 0;
@@ -177,12 +145,10 @@
     💻 Join Eaglercraft
   </a>
 
-  <section id="intro">
-    🕯️ 𝕿𝖍𝖊 𝕶𝖎𝖓𝖌𝖉𝖔𝖒 SMP 🕯️<br /><br />
-    Where power is taken — never given.<br /><br />
-    A land broken by war, veiled in shadow. Java, Bedrock, and Eaglercraft warriors rise under one blood-stained banner.
-
-    <ul style="text-align: left; padding-left: 2rem;">
+  <section>
+    <h2>🕯️ The Kingdom SMP</h2>
+    <p>Where power is taken — never given. Java, Bedrock, and Eaglercraft warriors rise under one blood-stained banner.</p>
+    <ul style="text-align:left; padding-left: 2rem;">
       <li>⚔️ Lifesteal PvP – Spill blood. Steal hearts.</li>
       <li>🪄 Custom Enchants – Forbidden powers beyond ancient scrolls.</li>
       <li>🛒 Shops – Buy, sell, and trade in the black market.</li>
@@ -190,16 +156,10 @@
       <li>🏰 Creative Realm – Coming soon…</li>
       <li>🌌 Skyblock & Minigames – Forged in the void. Soon to awaken.</li>
     </ul>
-
-    <p>
-      🛡️ Server Portals:<br />
-      Java: gangidkanymore.falixsrv.me:23803<br />
-      Bedrock: host.falixserver.net | Port: 23803<br />
-      Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com
-    </p>
+    <p>🛡️ Server IPs:<br>Java: gangidkanymore.falixsrv.me:23803<br>Bedrock: host.falixserver.net | Port: 23803<br>Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com</p>
   </section>
 
-  <section id="rules">
+  <section>
     <h2>⚔ Server Rules</h2>
     <ol>
       <li>Respect all players and staff. Toxicity leads to banishment.</li>
@@ -212,45 +172,27 @@
     </ol>
   </section>
 
-  <section id="lore">
+  <section>
     <h2>📜 Kingdom Lore</h2>
-    <p>
-      In a time before light, The Kingdom was forged from fire, steel, and shadow. <br />
-      Betrayed by kings, saved by rebels, and haunted by a curse that whispers from the void.<br />
-      The throne lies empty. Power beckons those who dare claim it...
-    </p>
+    <p>In a time before light, The Kingdom was forged from fire, steel, and shadow. Betrayed by kings, saved by rebels, and haunted by a curse that whispers from the void. The throne lies empty. Power beckons those who dare claim it...</p>
   </section>
 
-  <section id="gallery">
+  <section>
     <h2>🏞️ Image Gallery</h2>
     <img src="https://i.imgur.com/4ZQZ4E8.jpg" alt="Blood Arena" />
     <img src="https://i.imgur.com/Nk6Vk3x.jpg" alt="First Castle" />
     <img src="https://i.imgur.com/xlYTAvW.jpg" alt="The Forbidden Market" />
   </section>
 
-  <section id="discord">
-    <h2>🕯️ Join The Kingdom on Discord</h2>
-    <p>
-      Connect with the realm, stay updated, and chat with fellow warriors.<br />
-      <strong>Server:</strong> The Kingdom<br />
-      <strong>Owner:</strong> stilltyping0_02
-    </p>
-    <a class="join-btn" href="https://discord.gg/YExYCM7Zyf" target="_blank">
-      💬 Join Our Discord
-    </a>
+  <section>
+    <h2>🕯️ Join Us on Discord</h2>
+    <p>Connect with the realm, stay updated, and chat with fellow warriors.<br><strong>Server:</strong> The Kingdom<br><strong>Owner:</strong> stilltyping0_02</p>
+    <a class="join-btn" href="https://discord.gg/YExYCM7Zyf" target="_blank">💬 Join Our Discord</a>
   </section>
 
-  <!-- YouTube Uploads Playlist Embed -->
-  <section id="youtube-live" style="max-width: 760px; margin: 2rem auto; text-align: center;">
+  <section>
     <h2>🎥 Latest from THE_KINGDOM_SMP</h2>
-    <iframe
-      width="100%"
-      height="400"
-      src="https://www.youtube.com/embed?listType=user_uploads&list=UCTp5a5gxQXXW0C2Rh8BAGgw"
-      title="Latest THE_KINGDOM_SMP videos"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
+    <iframe width="100%" height="400" src="https://www.youtube.com/embed?listType=user_uploads&list=UCTp5a5gxQXXW0C2Rh8BAGgw" title="Latest Videos" frameborder="0" allowfullscreen></iframe>
   </section>
 
   <footer>© 2025 The Kingdom SMP. All rights reserved.</footer>
@@ -262,9 +204,7 @@
         const data = await res.json();
         const el = document.getElementById(elId);
         if (data.online) {
-          el.textContent = `✅ ${elId.split('-')[0].toUpperCase()} Server ONLINE | Players: ${
-            data.players.online
-          } / ${data.players.max}`;
+          el.textContent = `✅ ${elId.split('-')[0].toUpperCase()} Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
         } else {
           el.textContent = `❌ ${elId.split('-')[0].toUpperCase()} Server OFFLINE`;
         }
