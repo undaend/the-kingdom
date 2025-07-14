@@ -458,4 +458,73 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
       </svg>`
     },
     offline: `<svg class="status-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="opacity:0.4;">
-      <line x1="5
+      <line x1="5" y1="19" x2="19" y2="5" stroke="currentColor" stroke-width="2" />
+      <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2" />
+    </svg>`,
+    error: `<svg class="status-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="opacity:0.7;">
+      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3"/>
+      <line x1="12" y1="7" x2="12" y2="13" stroke="currentColor" stroke-width="3"/>
+      <circle cx="12" cy="17" r="1" fill="currentColor"/>
+    </svg>`
+  };
+
+  // Copy IP button functionality with tooltip
+  document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const ip = button.dataset.ip;
+      navigator.clipboard.writeText(ip).then(() => {
+        button.setAttribute('data-copied', 'true');
+        setTimeout(() => button.removeAttribute('data-copied'), 1800);
+      }).catch(() => {
+        alert('Failed to copy IP to clipboard.');
+      });
+    });
+  });
+
+  // Fetch Minecraft Server Status
+  async function fetchMinecraftStatus(ip, elem, type) {
+    try {
+      const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
+      if (!res.ok) throw new Error('Network error');
+      const data = await res.json();
+
+      if (data.online) {
+        elem.classList.remove('offline', 'error');
+        elem.classList.add('online');
+        elem.querySelector('.status-text').innerHTML = 
+          `${icons.online[type]} <strong>Server ONLINE</strong><br>Players: ${data.players.online} / ${data.players.max}`;
+      } else {
+        elem.classList.remove('online', 'error');
+        elem.classList.add('offline');
+        elem.querySelector('.status-text').innerHTML = `${icons.offline} <strong>Server OFFLINE</strong>`;
+      }
+    } catch {
+      elem.classList.remove('online', 'offline');
+      elem.classList.add('error');
+      elem.querySelector('.status-text').innerHTML = `${icons.error} <strong>Could not fetch status</strong>`;
+    }
+  }
+
+  // Eaglercraft - no API available, so just show a message and show Join button
+  function updateEaglerStatus() {
+    eaglerStatus.classList.remove('online', 'offline', 'error');
+    eaglerStatus.classList.add('eagler');
+    eaglerStatus.querySelector('.status-text').innerHTML = `
+      ${icons.online.eagler} <strong>⚠️ Eaglercraft status cannot be tracked. Join to check.</strong>
+    `;
+    // Show Join Eaglercraft button
+    joinEaglerBtn.style.display = 'inline-flex';
+  }
+
+  async function updateAllStatuses() {
+    fetchMinecraftStatus('gangidkanymore.falixsrv.me:23803', javaStatus, 'java');
+    fetchMinecraftStatus('host.falixserver.net:23803', bedrockStatus, 'bedrock');
+    updateEaglerStatus();
+  }
+
+  // Initial fetch & interval refresh every 30s
+  updateAllStatuses();
+  setInterval(updateAllStatuses, 30000);
+</script>
+</body>
+</html>
