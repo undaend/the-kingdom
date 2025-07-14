@@ -1,126 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Kingdom SMP</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Reset and base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body, html {
       height: 100%;
       font-family: 'MedievalSharp', cursive, serif;
-      color: #d4c49b;
       background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbhK7EI1pE6ElKml1iptHFoflm4JQKTnypPw&s') no-repeat center center fixed;
       background-size: cover;
+      color: #d4c49b;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      text-shadow: 0 0 10px #a67c00, 0 0 20px #6b4a00;
       padding: 20px;
+      text-shadow: 0 0 10px #a67c00, 0 0 20px #6b4a00;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    /* Title */
     h1 {
       font-size: 4rem;
       color: #f3d07a;
-      text-shadow: 0 0 5px #f3d07a, 0 0 10px #d4b64a, 0 0 20px #a47c00;
+      text-shadow:
+        0 0 5px #f3d07a,
+        0 0 15px #d4b64a,
+        0 0 25px #a47c00;
       margin-bottom: 0.3em;
       user-select: none;
+      text-align: center;
+      animation: glowPulse 3s infinite alternate ease-in-out;
     }
+    @keyframes glowPulse {
+      0% {
+        text-shadow:
+          0 0 5px #f3d07a,
+          0 0 15px #d4b64a,
+          0 0 25px #a47c00;
+      }
+      100% {
+        text-shadow:
+          0 0 15px #f3d07a,
+          0 0 25px #d4b64a,
+          0 0 35px #a47c00;
+      }
+    }
+
+    /* Logo */
     #logo {
-      width: 128px;
-      height: 128px;
-      margin-bottom: 1em;
-      filter: drop-shadow(0 0 5px #a67c00);
-      user-select: none;
-    }
-    #status {
-      font-size: 1.5rem;
+      width: 140px;
+      height: 140px;
       margin-bottom: 1.2em;
-      font-weight: 600;
-    }
-    #status > div {
-      margin-top: 0.4em;
-    }
-    #join-btn {
-      padding: 12px 32px;
-      font-size: 1.3rem;
-      background: linear-gradient(45deg, #a67c00, #d4b64a);
-      border: none;
-      border-radius: 6px;
-      color: #3c2f00;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px #d4b64a;
-      text-decoration: none;
-      margin-bottom: 2em;
+      filter: drop-shadow(0 0 8px #a67c00);
       user-select: none;
-      transition: background 0.3s ease;
-      display: inline-block;
+      transition: transform 0.3s ease;
+      cursor: default;
     }
-    #join-btn:hover {
-      background: linear-gradient(45deg, #d4b64a, #a67c00);
+    #logo:hover {
+      transform: scale(1.05);
     }
-    /* Copy button styles */
+
+    /* Status container */
+    #status {
+      width: 100%;
+      max-width: 700px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 2em;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+      color: #d4c49b;
+      text-shadow: 0 0 5px #a67c00;
+    }
+
+    /* Individual status box */
+    #status > div {
+      background: rgba(30, 20, 6, 0.75);
+      padding: 14px 18px;
+      border-radius: 12px;
+      flex: 1 1 220px;
+      min-width: 220px;
+      box-shadow: 0 0 12px #a67c00aa;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      transition: background-color 0.4s ease;
+    }
+
+    /* Status online colors */
+    .online {
+      color: #a7d129;
+      text-shadow: 0 0 15px #a7d129;
+      background-color: rgba(30, 60, 10, 0.9);
+    }
+    .online.bedrock {
+      color: #3ea8ff;
+      text-shadow: 0 0 15px #3ea8ff;
+      background-color: rgba(20, 40, 60, 0.9);
+    }
+    .online.eagler {
+      color: #a77fff;
+      text-shadow: 0 0 15px #a77fff;
+      background-color: rgba(40, 20, 60, 0.9);
+    }
+
+    /* Offline/Error */
+    .offline, .error {
+      color: #b23a3a;
+      text-shadow: 0 0 10px #b23a3a;
+      background-color: rgba(60, 15, 15, 0.8);
+    }
+
+    /* Copy IP button */
     .copy-btn {
       margin-left: 12px;
       background: linear-gradient(45deg, #a67c00, #d4b64a);
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       color: #3c2f00;
-      font-weight: bold;
+      font-weight: 700;
       cursor: pointer;
-      padding: 4px 10px;
-      font-size: 0.9rem;
-      box-shadow: 0 0 5px #d4b64a;
+      padding: 6px 14px;
+      font-size: 1rem;
+      box-shadow: 0 0 8px #d4b64a;
       user-select: none;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.15s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .copy-btn:hover {
       background: linear-gradient(45deg, #d4b64a, #a67c00);
+      transform: scale(1.1);
     }
-    /* Eaglercraft Join Button */
-    #eagler-join-btn {
-      display: none;
-      margin-top: 10px;
-      padding: 10px 24px;
-      background: linear-gradient(45deg, #7f46ff, #d1a2ff);
-      color: #3c2f00;
-      font-weight: bold;
-      border-radius: 6px;
-      text-decoration: none;
+
+    /* Join buttons styling */
+    #join-btn, #eagler-join-btn {
+      display: inline-block;
+      padding: 14px 38px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      border-radius: 10px;
+      cursor: pointer;
       user-select: none;
-      box-shadow: 0 0 10px #d1a2ff;
+      box-shadow: 0 0 18px #d4b64a;
+      transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+      text-decoration: none;
+      color: #3c2f00;
+      margin: 0 12px 24px;
+      text-align: center;
+      font-family: 'MedievalSharp', cursive, serif;
+      letter-spacing: 1.1px;
+    }
+
+    #join-btn {
+      background: linear-gradient(45deg, #a67c00, #d4b64a);
+      box-shadow: 0 0 20px #d4b64a;
+    }
+    #join-btn:hover {
+      background: linear-gradient(45deg, #d4b64a, #a67c00);
+      box-shadow: 0 0 28px #f7e470;
+      transform: scale(1.08);
+    }
+
+    #eagler-join-btn {
+      background: linear-gradient(45deg, #7f46ff, #d1a2ff);
+      box-shadow: 0 0 20px #b69eff;
+      display: none;
+      margin-top: 12px;
     }
     #eagler-join-btn:hover {
       background: linear-gradient(45deg, #d1a2ff, #7f46ff);
+      box-shadow: 0 0 28px #c9b3ff;
+      transform: scale(1.08);
     }
+
+    /* Intro text */
     #intro {
-      max-width: 600px;
-      background: rgba(20, 14, 5, 0.7);
-      padding: 20px 30px;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      line-height: 1.4;
+      max-width: 700px;
+      background: rgba(20, 14, 5, 0.8);
+      padding: 24px 36px;
+      border-radius: 14px;
+      font-size: 1.2rem;
+      line-height: 1.5;
       white-space: pre-wrap;
-      box-shadow: 0 0 15px #a67c00aa;
+      box-shadow: 0 0 25px #a67c00cc;
       user-select: text;
+      text-align: center;
+      margin-bottom: 24px;
     }
+
+    /* Footer */
     footer {
       margin-top: auto;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #b5a66a;
       user-select: none;
       font-family: Arial, sans-serif;
       padding: 8px 0;
+      letter-spacing: 1px;
     }
+
+    /* Responsive */
     @media (max-width: 640px) {
-      h1 { font-size: 2.8rem; }
-      #logo { width: 96px; height: 96px; }
+      h1 {
+        font-size: 2.8rem;
+      }
+      #logo {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 1em;
+      }
       #intro {
         font-size: 1rem;
         max-width: 90vw;
-        padding: 15px 20px;
+        padding: 16px 24px;
+      }
+      #status > div {
+        min-width: 100%;
+        justify-content: space-between;
+        font-size: 1.2rem;
+      }
+      #join-btn, #eagler-join-btn {
+        width: 90%;
+        margin: 12px auto;
+        display: block;
+      }
+      .copy-btn {
+        margin-left: 8px;
+        padding: 5px 10px;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -131,15 +250,15 @@
   <img id="logo" src="https://i.ibb.co/b3vK2h4/ksmplogo.png" alt="Server Logo" />
 
   <div id="status">
-    <div id="java-status">
+    <div id="java-status" class="offline">
       Loading Java server status...
       <button class="copy-btn" data-ip="gangidkanymore.falixsrv.me:23803">Copy IP</button>
     </div>
-    <div id="bedrock-status">
+    <div id="bedrock-status" class="offline">
       Loading Bedrock server status...
       <button class="copy-btn" data-ip="host.falixserver.net:23803">Copy IP</button>
     </div>
-    <div id="eagler-status">
+    <div id="eagler-status" class="offline">
       Loading Eaglercraft server status...
     </div>
 
@@ -148,21 +267,10 @@
       href="https://eagler-viaversion-a2j9.onrender.com/game.html"
       target="_blank"
       rel="noopener noreferrer"
+      aria-label="Join Eaglercraft Server"
     >
       Join Eaglercraft Now
-    </a>
-  </div>
-
-  <a
-    id="join-btn"
-    href="https://eagler-viaversion-a2j9.onrender.com/game.html"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Join Now
-  </a>
-
-  <section id="intro">
+  <section id="intro" aria-label="Server introduction and features">
 🕯️ 𝕿𝖍𝖊 𝕶𝖎𝖓𝖌𝖉𝖔𝖒 SMP 🕯️
 
 Where power is taken — never given.
@@ -206,18 +314,18 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
         const res = await fetch('https://api.mcsrvstat.us/2/gangidkanymore.falixsrv.me:23803');
         const data = await res.json();
         if (data.online) {
+          javaStatusEl.classList.remove('offline', 'error');
+          javaStatusEl.classList.add('online');
           javaStatusEl.firstChild.textContent = `🛡️ Java Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
-          javaStatusEl.style.color = '#a7d129';
-          javaStatusEl.style.textShadow = '0 0 10px #a7d129';
         } else {
+          javaStatusEl.classList.remove('online', 'error');
+          javaStatusEl.classList.add('offline');
           javaStatusEl.firstChild.textContent = '🛡️ Java Server OFFLINE';
-          javaStatusEl.style.color = '#b23a3a';
-          javaStatusEl.style.textShadow = '0 0 10px #b23a3a';
         }
       } catch {
+        javaStatusEl.classList.remove('online', 'offline');
+        javaStatusEl.classList.add('error');
         javaStatusEl.firstChild.textContent = '❌ Could not fetch Java status';
-        javaStatusEl.style.color = '#b23a3a';
-        javaStatusEl.style.textShadow = '0 0 10px #b23a3a';
       }
     }
 
@@ -226,25 +334,25 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
         const res = await fetch('https://api.mcsrvstat.us/2/host.falixserver.net:23803');
         const data = await res.json();
         if (data.online) {
+          bedrockStatusEl.classList.remove('offline', 'error');
+          bedrockStatusEl.classList.add('online', 'bedrock');
           bedrockStatusEl.firstChild.textContent = `🛡️ Bedrock Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
-          bedrockStatusEl.style.color = '#3ea8ff';
-          bedrockStatusEl.style.textShadow = '0 0 10px #3ea8ff';
         } else {
+          bedrockStatusEl.classList.remove('online', 'error');
+          bedrockStatusEl.classList.add('offline');
           bedrockStatusEl.firstChild.textContent = '🛡️ Bedrock Server OFFLINE';
-          bedrockStatusEl.style.color = '#b23a3a';
-          bedrockStatusEl.style.textShadow = '0 0 10px #b23a3a';
         }
       } catch {
+        bedrockStatusEl.classList.remove('online', 'offline');
+        bedrockStatusEl.classList.add('error');
         bedrockStatusEl.firstChild.textContent = '❌ Could not fetch Bedrock status';
-        bedrockStatusEl.style.color = '#b23a3a';
-        bedrockStatusEl.style.textShadow = '0 0 10px #b23a3a';
       }
     }
 
     function fetchEaglerStatus() {
+      eaglerStatusEl.classList.remove('offline', 'error');
+      eaglerStatusEl.classList.add('online', 'eagler');
       eaglerStatusEl.textContent = '🟢 Eaglercraft Server Online (Web Client)';
-      eaglerStatusEl.style.color = '#7fff9f';
-      eaglerStatusEl.style.textShadow = '0 0 10px #7fff9f';
       eaglerJoinBtn.style.display = 'inline-block';
     }
 
