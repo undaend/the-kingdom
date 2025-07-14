@@ -3,275 +3,404 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Kingdom SMP</title>
+  <title>The Kingdom SMP - Server Status & Join</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
-    /* Reset and base */
-    * {
+
+    :root {
+      --gold-light: #f3d07a;
+      --gold-dark: #a67c00;
+      --gold-glow: #d4b64a;
+      --gold-shadow: rgba(166, 124, 0, 0.7);
+
+      --green: #a7d129;
+      --blue: #3ea8ff;
+      --purple: #b78fff;
+      --error-red: #b23a3a;
+
+      --bg-dark: rgba(20, 14, 5, 0.85);
+      --bg-dark-alt: rgba(30, 20, 6, 0.9);
+      --bg-gradient: linear-gradient(135deg, #1e1203, #4a3207);
+
+      --font-family: 'MedievalSharp', cursive, serif;
+      --transition: 0.35s ease;
+    }
+
+    /* Reset & base */
+    *, *::before, *::after {
       margin: 0; padding: 0; box-sizing: border-box;
     }
-    body, html {
+    html, body {
       height: 100%;
-      font-family: 'MedievalSharp', cursive, serif;
-      background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbhK7EI1pE6ElKml1iptHFoflm4JQKTnypPw&s') no-repeat center center fixed;
-      background-size: cover;
-      color: #d4c49b;
+      font-family: var(--font-family);
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--gold-light);
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      text-shadow: 0 0 10px #a67c00, 0 0 20px #6b4a00;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      padding: 24px 20px 40px;
+      user-select: none;
+      overflow-x: hidden;
+      /* subtle slow background animation */
+      animation: bgShift 60s linear infinite alternate;
+    }
+    @keyframes bgShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
     }
 
-    /* Title */
-    h1 {
-      font-size: 4rem;
-      color: #f3d07a;
-      text-shadow:
-        0 0 5px #f3d07a,
-        0 0 15px #d4b64a,
-        0 0 25px #a47c00;
-      margin-bottom: 0.3em;
-      user-select: none;
-      text-align: center;
-      animation: glowPulse 3s infinite alternate ease-in-out;
-    }
+    /* Text shadow glow pulse */
     @keyframes glowPulse {
-      0% {
+      0%, 100% {
         text-shadow:
-          0 0 5px #f3d07a,
-          0 0 15px #d4b64a,
-          0 0 25px #a47c00;
+          0 0 8px var(--gold-light),
+          0 0 20px var(--gold-glow),
+          0 0 35px var(--gold-dark);
       }
-      100% {
+      50% {
         text-shadow:
-          0 0 15px #f3d07a,
-          0 0 25px #d4b64a,
-          0 0 35px #a47c00;
+          0 0 16px var(--gold-light),
+          0 0 30px var(--gold-glow),
+          0 0 50px var(--gold-dark);
       }
+    }
+
+    /* Page title */
+    h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+      user-select: text;
+      text-align: center;
+      animation: glowPulse 3s ease-in-out infinite;
+      letter-spacing: 0.06em;
     }
 
     /* Logo */
     #logo {
-      width: 140px;
-      height: 140px;
-      margin-bottom: 1.2em;
-      filter: drop-shadow(0 0 8px #a67c00);
-      user-select: none;
-      transition: transform 0.3s ease;
+      width: clamp(120px, 16vw, 180px);
+      filter: drop-shadow(0 0 10px var(--gold-dark));
+      margin-bottom: 2rem;
       cursor: default;
+      transition: transform 0.3s var(--transition);
     }
-    #logo:hover {
-      transform: scale(1.05);
+    #logo:hover, #logo:focus {
+      transform: scale(1.1) rotate(3deg);
+      outline: none;
     }
 
-    /* Status container */
+    /* Container for statuses */
     #status {
-      width: 100%;
-      max-width: 700px;
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 2em;
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 24px;
+      max-width: 760px;
+      width: 100%;
       justify-content: center;
-      color: #d4c49b;
-      text-shadow: 0 0 5px #a67c00;
+      margin-bottom: 2.8rem;
+      user-select: none;
     }
 
-    /* Individual status box */
-    #status > div {
-      background: rgba(30, 20, 6, 0.75);
-      padding: 14px 18px;
-      border-radius: 12px;
+    /* Individual status card */
+    .status-box {
       flex: 1 1 220px;
       min-width: 220px;
-      box-shadow: 0 0 12px #a67c00aa;
+      background: var(--bg-dark);
+      border-radius: 16px;
+      box-shadow: 0 0 20px var(--gold-shadow);
+      padding: 20px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: default;
+      position: relative;
+      transition: box-shadow 0.35s ease, background-color 0.35s ease;
+    }
+    .status-box:hover, .status-box:focus-within {
+      box-shadow:
+        0 0 28px var(--gold-glow),
+        inset 0 0 10px var(--gold-glow);
+      outline: none;
+    }
+
+    /* Status text */
+    .status-text {
+      font-weight: 700;
+      font-size: 1.35rem;
+      margin-bottom: 14px;
+      color: var(--gold-light);
+      text-align: center;
+      line-height: 1.3;
+      user-select: text;
+      text-shadow:
+        0 0 8px var(--gold-glow);
+      min-height: 4em;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      user-select: none;
-      transition: background-color 0.4s ease;
+      justify-content: center;
+      gap: 10px;
     }
 
-    /* Status online colors */
+    /* Icon SVG styles */
+    svg.status-icon {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      animation: pulseGlowIcon 2.8s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 4px currentColor);
+    }
+    @keyframes pulseGlowIcon {
+      0%, 100% { filter: drop-shadow(0 0 4px currentColor); }
+      50% { filter: drop-shadow(0 0 12px currentColor); }
+    }
+
+    /* Status colors */
     .online {
-      color: #a7d129;
-      text-shadow: 0 0 15px #a7d129;
-      background-color: rgba(30, 60, 10, 0.9);
+      color: var(--green);
+      background-color: rgba(31, 42, 0, 0.7);
+      box-shadow: 0 0 20px var(--green);
     }
-    .online.bedrock {
-      color: #3ea8ff;
-      text-shadow: 0 0 15px #3ea8ff;
-      background-color: rgba(20, 40, 60, 0.9);
+    .offline {
+      color: var(--error-red);
+      background-color: rgba(60, 15, 15, 0.85);
+      box-shadow: 0 0 20px var(--error-red);
     }
-    .online.eagler {
-      color: #a77fff;
-      text-shadow: 0 0 15px #a77fff;
-      background-color: rgba(40, 20, 60, 0.9);
+    .error {
+      color: var(--error-red);
+      background-color: rgba(90, 20, 20, 0.9);
+      box-shadow: 0 0 26px var(--error-red);
     }
-
-    /* Offline/Error */
-    .offline, .error {
-      color: #b23a3a;
-      text-shadow: 0 0 10px #b23a3a;
-      background-color: rgba(60, 15, 15, 0.8);
+    .eagler {
+      color: var(--purple);
+      background-color: rgba(70, 40, 110, 0.6);
+      box-shadow: 0 0 22px var(--purple);
     }
 
     /* Copy IP button */
     .copy-btn {
-      margin-left: 12px;
-      background: linear-gradient(45deg, #a67c00, #d4b64a);
-      border: none;
-      border-radius: 6px;
-      color: #3c2f00;
-      font-weight: 700;
       cursor: pointer;
-      padding: 6px 14px;
+      border: none;
+      padding: 9px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-family: var(--font-family);
       font-size: 1rem;
-      box-shadow: 0 0 8px #d4b64a;
-      user-select: none;
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold-glow));
+      color: #3c2f00;
+      box-shadow: 0 0 14px var(--gold-glow);
       transition: background 0.3s ease, transform 0.15s ease;
-      flex-shrink: 0;
-      white-space: nowrap;
+      user-select: none;
+      outline-offset: 3px;
+      outline-color: transparent;
+      outline-style: solid;
+      position: relative;
     }
-    .copy-btn:hover {
-      background: linear-gradient(45deg, #d4b64a, #a67c00);
+    .copy-btn:hover,
+    .copy-btn:focus-visible {
+      background: linear-gradient(45deg, var(--gold-glow), var(--gold-dark));
       transform: scale(1.1);
+      outline-color: var(--gold-glow);
+      outline-style: solid;
     }
 
-    /* Join buttons styling */
-    #join-btn, #eagler-join-btn {
-      display: inline-block;
-      padding: 14px 38px;
-      font-size: 1.4rem;
-      font-weight: 800;
-      border-radius: 10px;
-      cursor: pointer;
+    /* Tooltip after copy */
+    .copy-btn[data-copied="true"]::after {
+      content: 'Copied!';
+      position: absolute;
+      top: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: #222;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      pointer-events: none;
+      opacity: 1;
+      box-shadow: 0 0 10px var(--green);
+      white-space: nowrap;
       user-select: none;
-      box-shadow: 0 0 18px #d4b64a;
-      transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+      animation: fadeOut 1.8s forwards;
+      z-index: 10;
+    }
+    @keyframes fadeOut {
+      0% {opacity: 1;}
+      80% {opacity: 1;}
+      100% {opacity: 0;}
+    }
+
+    /* Join buttons container */
+    #join-buttons {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 3.5rem;
+      max-width: 760px;
+      width: 100%;
+      user-select: none;
+    }
+
+    /* Join Buttons */
+    .join-btn {
+      font-family: var(--font-family);
+      font-weight: 900;
+      font-size: 1.6rem;
+      padding: 18px 50px;
+      border-radius: 14px;
       text-decoration: none;
       color: #3c2f00;
-      margin: 0 12px 24px;
-      text-align: center;
-      font-family: 'MedievalSharp', cursive, serif;
-      letter-spacing: 1.1px;
+      cursor: pointer;
+      box-shadow: 0 0 32px var(--gold-glow);
+      transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1.2px;
+      min-width: 230px;
+      user-select: none;
+      user-drag: none;
+    }
+    .join-btn:focus-visible {
+      outline: 3px solid var(--gold-glow);
+      outline-offset: 5px;
     }
 
-    #join-btn {
-      background: linear-gradient(45deg, #a67c00, #d4b64a);
-      box-shadow: 0 0 20px #d4b64a;
+    /* Java & Bedrock Join Button */
+    #join-main {
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold-glow));
+      box-shadow: 0 0 38px var(--gold-glow);
     }
-    #join-btn:hover {
-      background: linear-gradient(45deg, #d4b64a, #a67c00);
-      box-shadow: 0 0 28px #f7e470;
+    #join-main:hover {
+      background: linear-gradient(45deg, var(--gold-glow), var(--gold-dark));
+      box-shadow: 0 0 46px #f7e470;
       transform: scale(1.08);
     }
 
-    #eagler-join-btn {
+    /* Eaglercraft Join Button */
+    #join-eagler {
       background: linear-gradient(45deg, #7f46ff, #d1a2ff);
-      box-shadow: 0 0 20px #b69eff;
-      display: none;
-      margin-top: 12px;
+      box-shadow: 0 0 38px #b69eff;
+      color: #3a2366;
+      display: none; /* initially hidden, shown when online */
     }
-    #eagler-join-btn:hover {
+    #join-eagler:hover {
       background: linear-gradient(45deg, #d1a2ff, #7f46ff);
-      box-shadow: 0 0 28px #c9b3ff;
+      box-shadow: 0 0 44px #c9b3ff;
       transform: scale(1.08);
     }
 
-    /* Intro text */
+    /* Intro Section */
     #intro {
-      max-width: 700px;
-      background: rgba(20, 14, 5, 0.8);
-      padding: 24px 36px;
-      border-radius: 14px;
-      font-size: 1.2rem;
-      line-height: 1.5;
+      max-width: 760px;
+      background: var(--bg-dark-alt);
+      padding: 32px 42px;
+      border-radius: 18px;
+      font-size: clamp(1rem, 1.3vw, 1.4rem);
+      line-height: 1.6;
       white-space: pre-wrap;
-      box-shadow: 0 0 25px #a67c00cc;
+      box-shadow: 0 0 40px var(--gold-shadow);
       user-select: text;
       text-align: center;
-      margin-bottom: 24px;
+      margin: 0 auto 2rem;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      user-select: text;
     }
 
     /* Footer */
     footer {
-      margin-top: auto;
+      font-family: Arial, sans-serif;
       font-size: 0.85rem;
       color: #b5a66a;
       user-select: none;
-      font-family: Arial, sans-serif;
-      padding: 8px 0;
-      letter-spacing: 1px;
+      letter-spacing: 1.3px;
+      margin-top: auto;
+      text-align: center;
+      padding-bottom: 10px;
     }
 
-    /* Responsive */
-    @media (max-width: 640px) {
-      h1 {
-        font-size: 2.8rem;
+    /* Responsive adjustments */
+    @media (max-width: 700px) {
+      #status {
+        gap: 18px;
       }
-      #logo {
-        width: 110px;
-        height: 110px;
-        margin-bottom: 1em;
+      .status-box {
+        flex: 1 1 100%;
+        min-width: unset;
       }
-      #intro {
-        font-size: 1rem;
-        max-width: 90vw;
-        padding: 16px 24px;
+      #join-buttons {
+        flex-direction: column;
+        gap: 22px;
       }
-      #status > div {
-        min-width: 100%;
-        justify-content: space-between;
-        font-size: 1.2rem;
-      }
-      #join-btn, #eagler-join-btn {
-        width: 90%;
-        margin: 12px auto;
-        display: block;
-      }
-      .copy-btn {
-        margin-left: 8px;
-        padding: 5px 10px;
-        font-size: 0.9rem;
+      .join-btn {
+        width: 100%;
+        min-width: unset;
       }
     }
   </style>
 </head>
 <body>
-
   <h1>The Kingdom SMP</h1>
-  <img id="logo" src="https://i.ibb.co/b3vK2h4/ksmplogo.png" alt="Server Logo" />
+  <img id="logo" src="https://i.ibb.co/b3vK2h4/ksmplogo.png" alt="The Kingdom SMP Logo" tabindex="0" />
 
-  <div id="status">
-    <div id="java-status" class="offline">
-      Loading Java server status...
-      <button class="copy-btn" data-ip="gangidkanymore.falixsrv.me:23803">Copy IP</button>
-    </div>
-    <div id="bedrock-status" class="offline">
-      Loading Bedrock server status...
-      <button class="copy-btn" data-ip="host.falixserver.net:23803">Copy IP</button>
-    </div>
-    <div id="eagler-status" class="offline">
-      Loading Eaglercraft server status...
-    </div>
+  <main id="status" aria-live="polite" aria-atomic="true" role="region" aria-label="Server Status">
+    <section id="java-status" class="status-box offline java" tabindex="0" aria-label="Java Server Status">
+      <div class="status-text" aria-live="off">
+        <svg class="status-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+          <circle cx="12" cy="12" r="10" stroke="none" />
+        </svg>
+        Loading Java server status...
+      </div>
+      <button class="copy-btn" data-ip="gangidkanymore.falixsrv.me:23803" aria-label="Copy Java Server IP">Copy IP</button>
+    </section>
 
+    <section id="bedrock-status" class="status-box offline bedrock" tabindex="0" aria-label="Bedrock Server Status">
+      <div class="status-text" aria-live="off">
+        <svg class="status-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+          <rect x="4" y="4" width="16" height="16" rx="4" ry="4" />
+        </svg>
+        Loading Bedrock server status...
+      </div>
+      <button class="copy-btn" data-ip="host.falixserver.net:23803" aria-label="Copy Bedrock Server IP">Copy IP</button>
+    </section>
+
+    <section id="eagler-status" class="status-box offline eagler" tabindex="0" aria-label="Eaglercraft Server Status">
+      <div class="status-text" aria-live="off">
+        <svg class="status-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" >
+          <polygon points="12 3 21 19 3 19" />
+        </svg>
+        Loading Eaglercraft server status...
+      </div>
+    </section>
+  </main>
+
+  <nav id="join-buttons" aria-label="Join Server Buttons">
     <a
-      id="eagler-join-btn"
+      href="https://gangidkanymore.falixsrv.me:23803"
+      id="join-main"
+      class="join-btn"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Join Java and Bedrock Servers"
+    >
+      Join Java & Bedrock
+    </a>
+    <a
       href="https://eagler-viaversion-a2j9.onrender.com/game.html"
+      id="join-eagler"
+      class="join-btn"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Join Eaglercraft Server"
     >
-      Join Eaglercraft Now
-      
-  <section id="intro" aria-label="Server introduction and features">
+      Join Eaglercraft
+    </a>
+  </nav>
+
+  <section id="intro" aria-label="Server introduction and features" tabindex="0">
 🕯️ 𝕿𝖍𝖊 𝕶𝖎𝖓𝖌𝖉𝖔𝖒 SMP 🕯️
 
 Where power is taken — never given.
@@ -304,82 +433,29 @@ Java | Bedrock | Eaglercraft — Enter if you dare.
 
   <footer>© 2025 The Kingdom SMP</footer>
 
-  <script>
-    const javaStatusEl = document.getElementById('java-status');
-    const bedrockStatusEl = document.getElementById('bedrock-status');
-    const eaglerStatusEl = document.getElementById('eagler-status');
-    const eaglerJoinBtn = document.getElementById('eagler-join-btn');
+<script>
+  // Elements
+  const javaStatus = document.getElementById('java-status');
+  const bedrockStatus = document.getElementById('bedrock-status');
+  const eaglerStatus = document.getElementById('eagler-status');
+  const joinEaglerBtn = document.getElementById('join-eagler');
+  const joinMainBtn = document.getElementById('join-main');
 
-    async function fetchJavaStatus() {
-      try {
-        const res = await fetch('https://api.mcsrvstat.us/2/gangidkanymore.falixsrv.me:23803');
-        const data = await res.json();
-        if (data.online) {
-          javaStatusEl.classList.remove('offline', 'error');
-          javaStatusEl.classList.add('online');
-          javaStatusEl.firstChild.textContent = `🛡️ Java Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
-        } else {
-          javaStatusEl.classList.remove('online', 'error');
-          javaStatusEl.classList.add('offline');
-          javaStatusEl.firstChild.textContent = '🛡️ Java Server OFFLINE';
-        }
-      } catch {
-        javaStatusEl.classList.remove('online', 'offline');
-        javaStatusEl.classList.add('error');
-        javaStatusEl.firstChild.textContent = '❌ Could not fetch Java status';
-      }
-    }
-
-    async function fetchBedrockStatus() {
-      try {
-        const res = await fetch('https://api.mcsrvstat.us/2/host.falixserver.net:23803');
-        const data = await res.json();
-        if (data.online) {
-          bedrockStatusEl.classList.remove('offline', 'error');
-          bedrockStatusEl.classList.add('online', 'bedrock');
-          bedrockStatusEl.firstChild.textContent = `🛡️ Bedrock Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
-        } else {
-          bedrockStatusEl.classList.remove('online', 'error');
-          bedrockStatusEl.classList.add('offline');
-          bedrockStatusEl.firstChild.textContent = '🛡️ Bedrock Server OFFLINE';
-        }
-      } catch {
-        bedrockStatusEl.classList.remove('online', 'offline');
-        bedrockStatusEl.classList.add('error');
-        bedrockStatusEl.firstChild.textContent = '❌ Could not fetch Bedrock status';
-      }
-    }
-
-    function fetchEaglerStatus() {
-      eaglerStatusEl.classList.remove('offline', 'error');
-      eaglerStatusEl.classList.add('online', 'eagler');
-      eaglerStatusEl.textContent = '🟢 Eaglercraft Server Online (Web Client)';
-      eaglerJoinBtn.style.display = 'inline-block';
-    }
-
-    function fetchAllStatuses() {
-      fetchJavaStatus();
-      fetchBedrockStatus();
-      fetchEaglerStatus();
-    }
-
-    fetchAllStatuses();
-    setInterval(fetchAllStatuses, 30000);
-
-    document.querySelectorAll('.copy-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const ip = button.getAttribute('data-ip');
-        navigator.clipboard.writeText(ip).then(() => {
-          const originalText = button.textContent;
-          button.textContent = 'Copied!';
-          setTimeout(() => {
-            button.textContent = originalText;
-          }, 1500);
-        }).catch(() => {
-          alert('Failed to copy IP. Please copy manually.');
-        });
-      });
-    });
-  </script>
-</body>
-</html>
+  // Status icons SVG markup for each state
+  const icons = {
+    online: {
+      java: `<svg class="status-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <circle cx="12" cy="12" r="5" fill="#a7d129"/>
+      </svg>`,
+      bedrock: `<svg class="status-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <rect x="4" y="4" width="16" height="16" rx="4" ry="4"/>
+        <rect x="8" y="8" width="8" height="8" rx="2" ry="2" fill="#3ea8ff"/>
+      </svg>`,
+      eagler: `<svg class="status-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <polygon points="12 3 21 19 3 19" fill="#b78fff"/>
+        <circle cx="12" cy="14" r="3" fill="#d1a2ff"/>
+      </svg>`
+    },
+    offline: `<svg class="status-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="opacity:0.4;">
+      <line x1="5
