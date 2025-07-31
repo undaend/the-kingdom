@@ -2,356 +2,114 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Kingdom SMP</title>
-  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap">
   <style>
-    :root {
-      --main-bg: #000;
-      --text-color: #f3d07a;
-      --card-bg: rgba(0, 0, 0, 0.6);
-    }
-    [data-theme="light"] {
-      --main-bg: #f3f3f3;
-      --text-color: #3b2d00;
-      --card-bg: rgba(255, 255, 255, 0.8);
-    }
     body {
       margin: 0;
       font-family: 'MedievalSharp', cursive;
-      background: var(--main-bg)
-        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbhK7EI1pE6ElKml1iptHFoflm4JQKTnypPw&s')
-        no-repeat center center fixed;
+      background: url('https://cdn.openai.com/chat-assets/file-00000000941861f886e2f3cef272bea4/A_digital_artwork_banner_for_%22THE_KINGDOM_SMP%22_dis.png') no-repeat center center fixed;
       background-size: cover;
-      color: var(--text-color);
+      color: #ffd700;
       text-align: center;
-      padding: 2rem;
-      transition: background 0.3s ease, color 0.3s ease;
-      cursor: url('https://cur.cursors-4u.net/games/gam-11/gam1087.cur'), auto;
     }
-    h1 {
-      font-size: 4rem;
-      text-shadow: 0 0 10px #a67c00;
+    .title {
+      font-size: 3rem;
+      margin-top: 2rem;
+      text-shadow: 2px 2px 4px #000;
     }
-    #logo {
-      width: 128px;
-      height: 128px;
-      margin: 1rem 0;
-    }
-    #status div {
-      margin: 1rem 0;
-      font-size: 1.3rem;
-    }
-    .join-btn {
-      display: inline-block;
-      margin: 1rem;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      background: linear-gradient(45deg, #7f46ff, #d1a2ff);
-      border-radius: 12px;
-      color: #1e1e2f;
-      text-decoration: none;
-      box-shadow: 0 0 18px #7289da;
-      transition: all 0.3s ease;
-    }
-    .join-btn:hover {
-      box-shadow: 0 0 25px #fff176;
-      transform: scale(1.05);
-    }
-    section {
-      max-width: 760px;
+    .status-box {
       margin: 2rem auto;
-      background: var(--card-bg);
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #a67c00;
-      text-align: left;
+      padding: 1.5rem;
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid #ffd700;
+      border-radius: 15px;
+      max-width: 400px;
+      box-shadow: 0 0 20px #000;
     }
-    section h2 {
-      text-align: center;
-      margin-top: 0;
-    }
-    #rules ol,
-    #intro ul {
-      padding-left: 1.5rem;
-    }
-    #intro ul {
-      list-style: disc;
-    }
-    #intro,
-    #rules,
-    #lore,
-    #gallery,
-    #discord {
-      color: var(--text-color);
-    }
-    #gallery img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 12px #000;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    footer {
-      margin-top: 3rem;
-      font-size: 0.8rem;
-      color: #b5a66a;
-      text-align: center;
-    }
-    #music-toggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: #222;
-      border: 2px solid #f3d07a;
-      color: #f3d07a;
-      padding: 0.4rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 9999;
-    }
-    /* YouTube videos styles */
-    #youtube-videos {
-      max-width: 760px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 0 20px #a67c00;
-      text-align: center;
-      color: var(--text-color);
-    }
-    #youtube-videos div {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+    .discord {
       margin-top: 1rem;
+      font-size: 1.2rem;
     }
-    #youtube-videos div > div {
-      width: 300px;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 0.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #a67c00;
-      text-align: center;
+    .rules {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      border-radius: 10px;
+      border: 1px solid #ffd700;
     }
-    #youtube-videos img {
-      width: 100%;
-      border-radius: 6px;
+    audio {
+      display: block;
+      margin: 2rem auto;
     }
-    @media (max-width: 600px) {
-      #youtube-videos div > div {
-        width: 100%;
-      }
+    .join-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      margin: 2rem auto;
+      font-size: 1.5rem;
+      color: #fff;
+      background: linear-gradient(135deg, #ffd700, #ff6600);
+      border: none;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 15px #ffd700;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 15px #ffd700; }
+      50% { box-shadow: 0 0 25px #ff6600; }
+      100% { box-shadow: 0 0 15px #ffd700; }
     }
   </style>
 </head>
 <body>
-  <button id="music-toggle">🔊 Music: On</button>
-  <audio id="bg-music" loop autoplay>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d93bb77c2.mp3?filename=medieval-theme-112028.mp3" type="audio/mpeg" />
+  <div class="title">THE KINGDOM SMP</div>
+
+  <div class="status-box">
+    <h2>Eaglercraft Status</h2>
+    <p id="eagler-status">Checking...</p>
+    <p id="player-count"></p>
+  </div>
+
+  <a class="join-button" href="https://eagler-viaversion-a2j9.onrender.com/game.html" target="_blank">⚔️ Join Eaglercraft Now</a>
+
+  <audio controls autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/05/audio_b77ae22ba0.mp3?filename=hero-epic-adventure-logo-136737.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <h1>The Kingdom SMP</h1>
-  <img
-    id="logo"
-    src="https://i.ibb.co/b3vK2h4/ksmplogo.png"
-    alt="Server Logo"
-  />
-
-  <div id="status">
-    <div id="java-status">Loading Java server status...</div>
-    <div id="bedrock-status">Loading Bedrock server status...</div>
-    <div id="eagler-status">
-      ⚠️ Eaglercraft status cannot be tracked. Join to check.<br />
-      <a class="join-btn" href="https://eagler-viaversion-nao4.onrender.com/game.html" target="_blank">💻 Join Eaglercraft</a>
-    </div>
+  <div class="rules">
+    <h3>🛡️ Kingdom Rules</h3>
+    <ul>
+      <li>Respect all players, builders, and moderators.</li>
+      <li>No cheating, hacking, or exploiting bugs.</li>
+      <li>Griefing is allowed only in warzones — not safe zones.</li>
+      <li>Keep the lore sacred. Don’t break the immersion.</li>
+      <li>Use common sense and don’t ruin the fun for others.</li>
+    </ul>
   </div>
 
-  <a class="join-btn" href="https://eagler-viaversion-nao4.onrender.com/game.html" target="_blank"
-    >💻 Join Eaglercraft</a
-  >
-
-  <section id="intro">
-    <h2>🕯️ 𝕿𝖍𝖊 𝕶𝖎𝖓𝖌𝖉𝖔𝖒 SMP 🕯️</h2>
-    <p>
-      Where power is taken — never given.<br />
-      A land broken by war, veiled in shadow. Java, Bedrock, and Eaglercraft
-      warriors rise under one blood-stained banner.
-    </p>
-    <ul>
-      <li>⚔️ Lifesteal PvP – Spill blood. Steal hearts.</li>
-      <li>🪄 Custom Enchants – Forbidden powers beyond ancient scrolls.</li>
-      <li>🛒 Shops – Buy, sell, and trade in the black market.</li>
-      <li>📦 Teleportation – Travel swiftly through cursed lands.</li>
-      <li>🏰 Creative Realm – Coming soon…</li>
-      <li>🌌 Skyblock & Minigames – Forged in the void. Soon to awaken.</li>
-    </ul>
-    <p>
-      🛡️ Server Portals:<br />
-      Java: gangidkanymore.falixsrv.me:23803<br />
-      Bedrock: host.falixserver.net | Port: 23803<br />
-      Eaglercraft: wss://eagler-viaversion-a2j9.onrender.com
-    </p>
-  </section>
-
-  <section id="rules">
-    <h2>⚔ Server Rules</h2>
-    <ol>
-      <li>Respect all players and staff. Toxicity leads to banishment.</li>
-      <li>No griefing or stealing unless allowed by game mechanics.</li>
-      <li>Keep chat clean — no hate, no spam, no slurs.</li>
-      <li>No exploiting, hacking, or using unfair mods.</li>
-      <li>Lifesteal PvP must be fair — no spawn killing or glitch abuse.</li>
-      <li>Use common sense. If you think it’s wrong, don’t do it.</li>
-      <li>Admins have final say — appeal fairly if punished.</li>
-    </ol>
-  </section>
-
-  <section id="lore">
-    <h2>📜 Kingdom Lore</h2>
-    <p>
-      In a time before light, The Kingdom was forged from fire, steel, and
-      shadow.<br />
-      Betrayed by kings, saved by rebels, and haunted by a curse that whispers
-      from the void.<br />
-      The throne lies empty. Power beckons those who dare claim it...
-    </p>
-  </section>
-
-  <section id="gallery">
-    <h2>🏞️ Image Gallery</h2>
-    <img src="https://i.imgur.com/4ZQZ4E8.jpg" alt="Blood Arena" />
-    <img src="https://i.imgur.com/Nk6Vk3x.jpg" alt="First Castle" />
-    <img src="https://i.imgur.com/xlYTAvW.jpg" alt="The Forbidden Market" />
-  </section>
-
-  <section id="discord">
-    <h2>🕯️ Join The Kingdom on Discord</h2>
-    <p>
-      Connect with the realm, stay updated, and chat with fellow warriors.<br />
-      <strong>Server:</strong> The Kingdom<br />
-      <strong>Owner:</strong> stilltyping0_02
-    </p>
-    <a class="join-btn" href="https://discord.gg/YExYCM7Zyf" target="_blank"
-      >💬 Join Our Discord</a
-    >
-  </section>
-
-  <section id="youtube-videos">
-    <h2>🎥 Latest Videos from THE_KINGDOM_SMP</h2>
-    <div id="videos-container">
-      <p>Loading latest videos...</p>
-    </div>
-  </section>
-
-  <section id="map">
-    <h2>🗺️ Server Map</h2>
-    <img
-      src="https://picsum.photos/800/400?random=1"
-      alt="Random Server Map Image"
-    />
-    <p style="color: #f3d07a; font-size: 0.9rem;">
-      Note: This is a placeholder. Real-time map support coming soon.
-    </p>
-  </section>
-
-  <footer>© 2025 The Kingdom SMP. All rights reserved.</footer>
+  <div class="discord">
+    🔗 <strong>Discord:</strong> <a href="https://discord.gg/YExYCM7Zyf" target="_blank">Join The Kingdom</a><br />
+    👤 <strong>Owner:</strong> stilltyping0_02
+  </div>
 
   <script>
-    const bgMusic = document.getElementById('bg-music');
-    const toggleBtn = document.getElementById('music-toggle');
-    let isMuted = false;
-
-    toggleBtn.addEventListener('click', () => {
-      isMuted = !isMuted;
-      bgMusic.muted = isMuted;
-      toggleBtn.textContent = isMuted ? '🔇 Music: Off' : '🔊 Music: On';
-    });
-
-    // Auto-refresh the map with a new random image every 60 seconds
-    setInterval(() => {
-      const mapImg = document.querySelector('#map img');
-      mapImg.src = `https://picsum.photos/800/400?random=${Math.floor(
-        Math.random() * 1000
-      )}`;
-    }, 60000);
-
-    // YouTube Latest Videos Fetch
-    const API_KEY = 'AIzaSyDHJEGSAb36sQHZipctmstjlr4hoL8aORk';
-    const CHANNEL_ID = 'UCTp5a5gxQXXW0C2Rh8BAGgw';
-    const MAX_RESULTS = 5;
-
-    async function fetchLatestVideos() {
-      const container = document.getElementById('videos-container');
-      container.innerHTML = '<p>Loading latest videos...</p>';
-
-      const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${MAX_RESULTS}`;
-
+    async function checkEaglerStatus() {
       try {
-        const response = await fetch(url);
+        const response = await fetch('https://eagler-viaversion-a2j9.onrender.com/status.json');
         const data = await response.json();
-
-        if (!data.items || data.items.length === 0) {
-          container.innerHTML = '<p>No recent videos found.</p>';
-          return;
-        }
-
-        container.innerHTML = ''; // Clear loading message
-
-        data.items.forEach((item) => {
-          if (item.id.kind === 'youtube#video') {
-            const videoId = item.id.videoId;
-            const title = item.snippet.title;
-            const thumbnail = item.snippet.thumbnails.medium.url;
-            const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-
-            const videoElem = document.createElement('div');
-            videoElem.innerHTML = `
-              <a href="${videoUrl}" target="_blank" rel="noopener" style="text-decoration:none; color:#f3d07a;">
-                <img src="${thumbnail}" alt="${title}" />
-                <p style="margin:0.5rem 0 0; font-weight:bold;">${title}</p>
-              </a>
-            `;
-
-            container.appendChild(videoElem);
-          }
-        });
-      } catch (err) {
-        console.error('Failed to fetch YouTube videos:', err);
-        container.innerHTML = '<p>Error loading videos.</p>';
+        document.getElementById('eagler-status').textContent = data.online ? '🟢 Online' : '🔴 Offline';
+        document.getElementById('player-count').textContent = `Players Online: ${data.players.online}/${data.players.max}`;
+      } catch (error) {
+        document.getElementById('eagler-status').textContent = '⚠️ Cannot fetch status';
+        document.getElementById('player-count').textContent = '';
       }
     }
-
-    fetchLatestVideos();
-
-    // Server Status Fetch
-    async function fetchStatus(ip, elId) {
-      try {
-        const res = await fetch(`https://api.mcsrvstat.us/2/${ip}`);
-        const data = await res.json();
-        const el = document.getElementById(elId);
-        if (data.online) {
-          el.textContent = `✅ ${elId
-            .split('-')[0]
-            .toUpperCase()} Server ONLINE | Players: ${data.players.online} / ${data.players.max}`;
-        } else {
-          el.textContent = `❌ ${elId.split('-')[0].toUpperCase()} Server OFFLINE`;
-        }
-      } catch {
-        document.getElementById(elId).textContent = `⚠️ Could not fetch ${elId
-          .split('-')[0]
-          .toUpperCase()} status.`;
-      }
-    }
-
-    fetchStatus('gangidkanymore.falixsrv.me:23803', 'java-status');
-    fetchStatus('host.falixserver.net:23803', 'bedrock-status');
+    checkEaglerStatus();
+    setInterval(checkEaglerStatus, 30000);
   </script>
 </body>
 </html>
