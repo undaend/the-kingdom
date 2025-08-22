@@ -112,7 +112,7 @@
     <p id="player-count"></p>
   </div>
 
-  <a class="join-button" href="minecraft://?addExternalServer=The Kingdom SMP|theknigdom.falixsrv.me:23924">⚔️ Join The Kingdom SMP</a>
+  <a class="join-button" href="minecraft://?addExternalServer=The Kingdom SMP|32121.ddnod.es">⚔️ Join The Kingdom SMP</a>
 
   <div class="rules">
     <h3>🛡️ Kingdom Rules</h3>
@@ -157,7 +157,7 @@
   <script>
     async function checkEaglerStatus() {
       try {
-        const response = await fetch('https://api.mcstatus.io/v2/status/java/theknigdom.falixsrv.me:23924');
+        const response = await fetch('https://api.mcstatus.io/v2/status/java/32121.ddnod.es');
         const data = await response.json();
         document.getElementById('eagler-status').textContent = data.online ? '🟢 Online' : '🔴 Offline';
         document.getElementById('player-count').textContent = data.online ? `Players Online: ${data.players.online}/${data.players.max}` : '';
