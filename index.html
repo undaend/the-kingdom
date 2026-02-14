@@ -10,7 +10,8 @@ body {
   background: #111;
   font-family: Arial, sans-serif;
   color: white;
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent body scrolling */
+  height: 100vh;
 }
 
 /* Heart background (fixed) */
@@ -69,12 +70,14 @@ body {
   100% { text-shadow: 0 0 15px #fff, 0 0 30px red; }
 }
 
-/* Server status box (center, stationary) */
+/* Server status box (fixed in middle) */
 .status-box {
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
   max-width: 400px;
-  margin: 20px auto;
   padding: 20px;
   background: rgba(0,0,0,0.85);
   border-radius: 15px;
@@ -93,14 +96,19 @@ body {
   color: #ccc;
 }
 
-/* Columns container */
+/* Container for the columns */
 .container {
-  position: relative;
-  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: space-between;
-  padding: 20px;
   gap: 20px;
+  width: 90%;
+  max-width: 1000px;
+  height: 60vh; /* restrict panel height */
+  z-index: 2;
 }
 
 /* Columns */
@@ -110,8 +118,7 @@ body {
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 0 20px red;
-  max-height: 60vh;
-  overflow-y: auto;
+  overflow-y: auto; /* only column scrolls */
 }
 
 /* Staff */
@@ -129,7 +136,14 @@ body {
 .rules-box li { margin: 5px 0; }
 
 /* Buttons */
-.buttons { text-align: center; margin: 20px 0 40px; z-index:2; position: relative;}
+.buttons {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 2;
+}
 .button {
   display: inline-block;
   padding: 12px 25px;
@@ -146,6 +160,14 @@ body {
 .button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 30px #ff6666;
+}
+
+/* Responsive: stack columns on smaller screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: 70vh;
+  }
 }
 </style>
 </head>
@@ -174,49 +196,34 @@ body {
   <!-- Staff Left -->
   <div class="column staff-box">
     <h3>👑 Staff Team</h3>
-
     <div class="staff-role">Founder</div>
     <ul><li>progamer101</li></ul>
-
     <div class="staff-role">Owner</div>
     <ul><li>knight0o0</li></ul>
-
     <div class="staff-role">Co-Owner</div>
     <ul><li>thedevilgabriel</li><li>mcmantis</li></ul>
-
     <div class="staff-role">Security Manager</div>
     <ul><li>riiasmod</li></ul>
-
     <div class="staff-role">Overseer</div>
     <ul><li>logiebead</li></ul>
-
     <div class="staff-role">Manager</div>
     <ul><li>bulet1341</li><li>snelsterendier</li></ul>
-
     <div class="staff-role">Jr. Manager</div>
     <ul><li>sungodwukung</li></ul>
-
     <div class="staff-role">Head Developer</div>
     <ul><li>nanobatch</li></ul>
-
     <div class="staff-role">Developer</div>
     <ul><li>xenew</li><li>blood</li><li>applejuice</li></ul>
-
     <div class="staff-role">Sr. Admin</div>
     <ul><li>atmos</li></ul>
-
     <div class="staff-role">Admin</div>
     <ul><li>—</li></ul>
-
     <div class="staff-role">Moderator</div>
     <ul><li>soefzoef83</li><li>poolboss</li><li>brainwashedidiot</li></ul>
-
     <div class="staff-role">Head Builder</div>
     <ul><li>icespire63</li></ul>
-
     <div class="staff-role">Builder</div>
     <ul><li>aragorn</li><li>stormya</li><li>c4rlit0s</li></ul>
-
     <div class="staff-role">Helper / Temp Staff</div>
     <ul><li>—</li></ul>
   </div>
