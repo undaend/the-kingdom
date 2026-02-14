@@ -10,7 +10,7 @@ body {
   background: #111;
   font-family: Arial, sans-serif;
   color: white;
-  overflow: hidden; /* prevent body scrolling */
+  overflow: hidden; /* prevent page scrolling */
   height: 100vh;
 }
 
@@ -70,7 +70,7 @@ body {
   100% { text-shadow: 0 0 15px #fff, 0 0 30px red; }
 }
 
-/* Server status (fixed in middle) */
+/* Server status (fixed in middle, semi-transparent) */
 .status-box {
   position: fixed;
   top: 50%;
@@ -79,7 +79,7 @@ body {
   z-index: 2;
   max-width: 400px;
   padding: 20px;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.6); /* semi-transparent */
   border-radius: 15px;
   text-align: center;
   box-shadow: 0 0 20px red;
@@ -104,13 +104,13 @@ body {
   right: 0;
   display: flex;
   justify-content: space-between; /* push panels to edges */
-  padding: 0 20px; /* padding from screen edges */
+  padding: 0 20px; /* small padding from screen edges */
   width: 100%;
   max-width: 100%;
   z-index: 2;
 }
 
-/* Columns width (smaller so center is fully visible) */
+/* Columns width (smaller to leave center visible) */
 .column {
   flex: 0 0 35%; /* smaller width */
   background: rgba(0,0,0,0.8);
