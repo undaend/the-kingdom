@@ -10,7 +10,7 @@ body {
   background: #111;
   font-family: Arial, sans-serif;
   color: white;
-  overflow: hidden; /* prevent all body scrolling */
+  overflow: hidden; /* prevent page scrolling */
   height: 100vh;
 }
 
@@ -96,35 +96,35 @@ body {
   color: #ccc;
 }
 
-/* Container for columns (moved up) */
+/* Container for columns (panels moved outward to sides) */
 .container {
   position: fixed;
-  bottom: 220px; /* moved up from 120px */
+  bottom: 220px; /* above buttons */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 80px; /* space between panels to reveal center */
   width: 90%;
   max-width: 1000px;
   z-index: 2;
 }
 
-/* Columns */
+/* Columns width (slightly smaller so center is visible) */
 .column {
-  flex: 1 1 45%;
+  flex: 0 0 40%; /* smaller width */
   background: rgba(0,0,0,0.8);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 0 20px red;
-  overflow: hidden; /* default no scroll */
+  overflow: hidden;
 }
 
 /* Staff panel: scrollable */
 .staff-box {
   height: 100%;
-  max-height: 60vh; /* limit height */
-  overflow-y: auto; /* scroll if content exceeds height */
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 /* Rules panel: fully visible */
@@ -177,7 +177,8 @@ body {
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    bottom: 180px; /* moved up on mobile */
+    bottom: 180px; /* stacked panels above buttons */
+    gap: 20px;
   }
   
   .column {
@@ -185,7 +186,7 @@ body {
   }
 
   .staff-box {
-    max-height: 35vh; /* scrollable height for mobile */
+    max-height: 35vh; /* mobile scrollable height */
   }
 }
 </style>
