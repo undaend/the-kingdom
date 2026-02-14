@@ -13,19 +13,19 @@ body {
   overflow-x: hidden;
 }
 
-/* Heart background */
+/* Smaller heart background */
 .heart {
   position: fixed;
-  width: 600px;
-  height: 600px;
+  width: 400px;
+  height: 400px;
   background: red;
   transform: rotate(-45deg);
   top: 50%;
   left: 50%;
-  margin-left: -300px;
-  margin-top: -300px;
+  margin-left: -200px;
+  margin-top: -200px;
   z-index: 0;
-  box-shadow: 0 0 100px red;
+  box-shadow: 0 0 80px red;
   animation: pulseHeart 2.5s infinite alternate;
 }
 
@@ -33,19 +33,19 @@ body {
 .heart:after {
   content: "";
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 400px;
+  height: 400px;
   background: red;
   border-radius: 50%;
 }
 
-.heart:before { top: -300px; left: 0; }
-.heart:after { left: 300px; top: 0; }
+.heart:before { top: -200px; left: 0; }
+.heart:after { left: 200px; top: 0; }
 
 @keyframes pulseHeart {
-  0% { box-shadow: 0 0 100px red; }
-  50% { box-shadow: 0 0 150px #ff6666; }
-  100% { box-shadow: 0 0 100px red; }
+  0% { box-shadow: 0 0 80px red; }
+  50% { box-shadow: 0 0 120px #ff6666; }
+  100% { box-shadow: 0 0 80px red; }
 }
 
 /* Text in heart */
@@ -54,49 +54,32 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: white;
   text-align: center;
   z-index: 1;
-  text-shadow: 0 0 20px #fff, 0 0 40px red;
+  text-shadow: 0 0 15px #fff, 0 0 30px red;
   animation: pulseText 2s infinite alternate;
 }
 
 @keyframes pulseText {
-  0% { text-shadow: 0 0 20px #fff, 0 0 40px red; }
-  50% { text-shadow: 0 0 30px #fff, 0 0 60px #ff6666; }
-  100% { text-shadow: 0 0 20px #fff, 0 0 40px red; }
+  0% { text-shadow: 0 0 15px #fff, 0 0 30px red; }
+  50% { text-shadow: 0 0 25px #fff, 0 0 50px #ff6666; }
+  100% { text-shadow: 0 0 15px #fff, 0 0 30px red; }
 }
 
-/* Content container */
-.container {
+/* Server status box in center */
+.status-box {
   position: relative;
   z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 400px;
+  margin: 20px auto;
   padding: 20px;
-  gap: 20px;
-}
-
-.column {
-  flex: 1 1 45%;
-  min-width: 300px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
   border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 0 25px red;
-  max-height: 80vh;
-  overflow-y: auto;
-  animation: glowColumn 3s infinite alternate;
-}
-
-@keyframes glowColumn {
-  0% { box-shadow: 0 0 25px red; }
-  50% { box-shadow: 0 0 50px #ff3333; }
-  100% { box-shadow: 0 0 25px red; }
+  text-align: center;
+  box-shadow: 0 0 20px red;
 }
 
 .status-box p {
@@ -110,21 +93,35 @@ body {
   color: #ccc;
 }
 
-/* Staff list */
+/* Columns container */
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 20px;
+  gap: 20px;
+}
+
+/* Columns */
+.column {
+  flex: 1 1 40%;
+  background: rgba(0,0,0,0.8);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 20px red;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+/* Staff */
 .staff-box ul { list-style: none; padding: 0; margin: 0; }
 .staff-box li { margin: 5px 0; }
 .staff-role { 
   font-weight: bold; 
   color: #ff9999; 
   margin-top: 10px; 
-  text-shadow: 0 0 10px red;
-  animation: glowRole 3s infinite alternate;
-}
-
-@keyframes glowRole {
-  0% { text-shadow: 0 0 10px red; color: #ff9999; }
-  50% { text-shadow: 0 0 20px #ff6666; color: #ffcccc; }
-  100% { text-shadow: 0 0 10px red; color: #ff9999; }
+  text-shadow: 0 0 8px red;
 }
 
 /* Rules */
@@ -132,7 +129,7 @@ body {
 .rules-box li { margin: 5px 0; }
 
 /* Buttons */
-.buttons { text-align: center; margin-top: 20px; }
+.buttons { text-align: center; margin: 20px 0 40px; }
 .button {
   display: inline-block;
   padding: 12px 25px;
@@ -157,8 +154,24 @@ body {
 <div class="heart"></div>
 <div class="heart-text">PULSE SMP</div>
 
+<!-- Server status in middle -->
+<div class="status-box">
+  <p><strong>Java:</strong> <span id="java-status">Checking...</span></p>
+  <p id="java-players"></p>
+
+  <p><strong>Eagler:</strong> <span id="eagler-status">Checking...</span></p>
+  <p id="eagler-players">(player count unknown)</p>
+
+  <div class="ip">
+    Java IP: java.pulsine.online<br>
+    Eagler IP: pulsingsmp.xyz<br>
+    Bedrock: Coming Soon
+  </div>
+</div>
+
+<!-- Columns -->
 <div class="container">
-  <!-- Left column: Staff -->
+  <!-- Staff Left -->
   <div class="column staff-box">
     <h3>👑 Staff Team</h3>
 
@@ -172,61 +185,45 @@ body {
     <ul><li>thedevilgabriel</li><li>mcmantis</li></ul>
 
     <div class="staff-role">Security Manager</div>
-    <ul><li>security manger</li></ul>
+    <ul><li>riiasmod</li></ul>
 
     <div class="staff-role">Overseer</div>
     <ul><li>logiebead</li></ul>
 
     <div class="staff-role">Manager</div>
-    <ul><li>bulet1341</li><li>snelsterendier</li><li>xenew</li></ul>
+    <ul><li>bulet1341</li><li>snelsterendier</li></ul>
 
     <div class="staff-role">Jr. Manager</div>
-    <ul><li>jr.manger</li></ul>
+    <ul><li>sungodwukung</li></ul>
 
     <div class="staff-role">Head Developer</div>
     <ul><li>nanobatch</li></ul>
 
     <div class="staff-role">Developer</div>
-    <ul><li>aragorn</li><li>blood</li><li>applejuice</li></ul>
+    <ul><li>xenew</li><li>blood</li><li>applejuice</li></ul>
 
     <div class="staff-role">Sr. Admin</div>
-    <ul><li>—</li></ul>
+    <ul><li>atmos</li></ul>
 
     <div class="staff-role">Admin</div>
     <ul><li>—</li></ul>
 
     <div class="staff-role">Moderator</div>
-    <ul><li>soefzoef83</li><li>poolboss</li><li>brainwashedidiot</li><li>riiasmod</li></ul>
+    <ul><li>soefzoef83</li><li>poolboss</li><li>brainwashedidiot</li></ul>
 
     <div class="staff-role">Head Builder</div>
     <ul><li>icespire63</li></ul>
 
     <div class="staff-role">Builder</div>
-    <ul><li>stormya</li><li>c4rlit0s</li></ul>
+    <ul><li>aragorn</li><li>stormya</li><li>c4rlit0s</li></ul>
 
     <div class="staff-role">Helper / Temp Staff</div>
-    <ul><li>sungodwukung</li></ul>
+    <ul><li>—</li></ul>
   </div>
 
-  <!-- Right column: Rules + Server Info -->
+  <!-- Rules Right -->
   <div class="column rules-box">
-    <h3>🛡️ Server Rules & Info</h3>
-
-    <div class="status-box">
-      <p><strong>Java:</strong> <span id="java-status">Checking...</span></p>
-      <p id="java-players"></p>
-
-      <p><strong>Eagler:</strong> <span id="eagler-status">Checking...</span></p>
-      <p id="eagler-players">(player count unknown)</p>
-
-      <div class="ip">
-        Java IP: java.pulsine.online<br>
-        Eagler IP: pulsingsmp.xyz<br>
-        Bedrock: Coming Soon
-      </div>
-    </div>
-
-    <h4>Rules</h4>
+    <h3>🛡️ Server Rules</h3>
     <ul>
       <li>Respect all players and staff members.</li>
       <li>No cheating, hacking, or exploiting.</li>
