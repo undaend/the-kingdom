@@ -10,7 +10,7 @@ body {
   background: #111;
   font-family: Arial, sans-serif;
   color: white;
-  overflow: hidden; /* prevent page scrolling */
+  overflow: hidden; /* prevent body scrolling */
   height: 100vh;
 }
 
@@ -96,23 +96,23 @@ body {
   color: #ccc;
 }
 
-/* Container for columns (panels moved outward to sides) */
+/* Container for columns (panels pushed to edges) */
 .container {
   position: fixed;
   bottom: 220px; /* above buttons */
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   display: flex;
-  justify-content: space-between;
-  gap: 80px; /* space between panels to reveal center */
-  width: 90%;
-  max-width: 1000px;
+  justify-content: space-between; /* push panels to edges */
+  padding: 0 20px; /* padding from screen edges */
+  width: 100%;
+  max-width: 100%;
   z-index: 2;
 }
 
-/* Columns width (slightly smaller so center is visible) */
+/* Columns width (smaller so center is fully visible) */
 .column {
-  flex: 0 0 40%; /* smaller width */
+  flex: 0 0 35%; /* smaller width */
   background: rgba(0,0,0,0.8);
   border-radius: 15px;
   padding: 20px;
@@ -120,7 +120,7 @@ body {
   overflow: hidden;
 }
 
-/* Staff panel: scrollable */
+/* Staff panel scrollable */
 .staff-box {
   height: 100%;
   max-height: 60vh;
@@ -178,11 +178,13 @@ body {
   .container {
     flex-direction: column;
     bottom: 180px; /* stacked panels above buttons */
+    padding: 0 10px;
     gap: 20px;
   }
   
   .column {
     width: 100%;
+    flex: 0 0 auto;
   }
 
   .staff-box {
@@ -213,7 +215,7 @@ body {
 
 <!-- Columns -->
 <div class="container">
-  <!-- Staff Panel -->
+  <!-- Staff Panel (Left Edge) -->
   <div class="column staff-box">
     <h3>👑 Staff Team</h3>
     <div class="staff-role">Founder</div>
@@ -248,7 +250,7 @@ body {
     <ul><li>—</li></ul>
   </div>
 
-  <!-- Rules Panel -->
+  <!-- Rules Panel (Right Edge) -->
   <div class="column rules-box">
     <h3>🛡️ Server Rules</h3>
     <ul>
