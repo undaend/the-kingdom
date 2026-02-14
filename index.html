@@ -10,7 +10,7 @@ body {
   background: #111;
   font-family: Arial, sans-serif;
   color: white;
-  overflow: hidden; /* prevent all scrolling */
+  overflow: hidden; /* prevent all body scrolling */
   height: 100vh;
 }
 
@@ -96,7 +96,7 @@ body {
   color: #ccc;
 }
 
-/* Container for left and right panels */
+/* Container for columns */
 .container {
   position: fixed;
   bottom: 120px; /* above buttons */
@@ -110,18 +110,29 @@ body {
   z-index: 2;
 }
 
-/* Columns (no scrolling) */
+/* Columns */
 .column {
   flex: 1 1 45%;
   background: rgba(0,0,0,0.8);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 0 20px red;
-  overflow: hidden; /* remove scroll */
-  max-height: none; /* allow all content to show */
+  overflow: hidden; /* default no scroll */
 }
 
-/* Staff list */
+/* Staff panel: scrollable */
+.staff-box {
+  height: 100%;
+  max-height: 60vh; /* limit height */
+  overflow-y: auto; /* scroll if content exceeds height */
+}
+
+/* Rules panel: fully visible */
+.rules-box {
+  overflow: hidden;
+}
+
+/* Staff list styling */
 .staff-box ul { list-style: none; padding: 0; margin: 0; }
 .staff-box li { margin: 5px 0; }
 .staff-role { 
@@ -131,7 +142,7 @@ body {
   text-shadow: 0 0 8px red;
 }
 
-/* Rules list */
+/* Rules list styling */
 .rules-box ul { list-style: disc; padding-left: 20px; }
 .rules-box li { margin: 5px 0; }
 
@@ -162,15 +173,19 @@ body {
   box-shadow: 0 0 30px #ff6666;
 }
 
-/* Mobile responsive: stack panels vertically */
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    bottom: 100px; /* keep above buttons */
+    bottom: 100px;
   }
-
+  
   .column {
     width: 100%;
+  }
+
+  .staff-box {
+    max-height: 35vh; /* allow scroll on mobile */
   }
 }
 </style>
@@ -195,9 +210,9 @@ body {
   </div>
 </div>
 
-<!-- Panels -->
+<!-- Columns -->
 <div class="container">
-  <!-- Staff -->
+  <!-- Staff Panel -->
   <div class="column staff-box">
     <h3>👑 Staff Team</h3>
     <div class="staff-role">Founder</div>
@@ -232,7 +247,7 @@ body {
     <ul><li>—</li></ul>
   </div>
 
-  <!-- Rules -->
+  <!-- Rules Panel -->
   <div class="column rules-box">
     <h3>🛡️ Server Rules</h3>
     <ul>
