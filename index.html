@@ -96,10 +96,10 @@ body {
   color: #ccc;
 }
 
-/* Container for columns */
+/* Container for columns (moved up) */
 .container {
   position: fixed;
-  bottom: 120px; /* above buttons */
+  bottom: 220px; /* moved up from 120px */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -177,7 +177,7 @@ body {
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
-    bottom: 100px;
+    bottom: 180px; /* moved up on mobile */
   }
   
   .column {
@@ -185,7 +185,7 @@ body {
   }
 
   .staff-box {
-    max-height: 35vh; /* allow scroll on mobile */
+    max-height: 35vh; /* scrollable height for mobile */
   }
 }
 </style>
