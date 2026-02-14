@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Smaller heart background */
+/* Heart background (fixed) */
 .heart {
   position: fixed;
   width: 400px;
@@ -48,7 +48,7 @@ body {
   100% { box-shadow: 0 0 80px red; }
 }
 
-/* Text in heart */
+/* Text in heart (fixed) */
 .heart-text {
   position: fixed;
   top: 50%;
@@ -69,10 +69,10 @@ body {
   100% { text-shadow: 0 0 15px #fff, 0 0 30px red; }
 }
 
-/* Server status box in center */
+/* Server status box (center, stationary) */
 .status-box {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
@@ -96,10 +96,10 @@ body {
 /* Columns container */
 .container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
-  padding: 0 20px 20px;
+  padding: 20px;
   gap: 20px;
 }
 
@@ -110,7 +110,7 @@ body {
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 0 20px red;
-  max-height: 50vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -129,7 +129,7 @@ body {
 .rules-box li { margin: 5px 0; }
 
 /* Buttons */
-.buttons { text-align: center; margin: 20px 0 40px; }
+.buttons { text-align: center; margin: 20px 0 40px; z-index:2; position: relative;}
 .button {
   display: inline-block;
   padding: 12px 25px;
